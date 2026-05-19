@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const {getRecipes, getTheRecipeById, createRecipe, updateTheRecipe, deleteTheRecipe} = require('../controllers/recipesController');
-const authorize = require('../middleware/auth');
+const {requireRole} = require('../middleware/auth'); // for the TEMP auth.js file
 
 router.get('/', getRecipes);
 router.get('/:id', getTheRecipeById);
-router.post('/', authorize('admin', 'manager'), createRecipe);
-router.put('/:id', authorize('admin', 'manager'), updateTheRecipe);
-router.delete('/:id', authorize('admin'), deleteTheRecipe);
+router.post('/', requireRole('admin', 'manager'), createRecipe);
+router.put('/:id', requireRole('admin', 'manager'), updateTheRecipe);
+router.delete('/:id', requireRole('admin'), deleteTheRecipe);
 
 module.exports = router;
