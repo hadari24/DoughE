@@ -15,7 +15,7 @@ let users = [
   {
     userId: 2,
     firstName: "Shir",
-    lastName: "Batat",
+    lastName: "Battat",
     createDate: "2026-03-02T11:30:00Z",
     updateDate: "2026-03-02T11:30:00Z",
     userRole: "admin"
@@ -23,15 +23,15 @@ let users = [
   {
     userId: 3,
     firstName: "Noa",
-    lastName: "Cohen",
+    lastName: "Kirel",
     createDate: "2026-03-05T09:15:00Z",
     updateDate: "2026-03-05T09:15:00Z",
     userRole: "manager"
   },
   {
     userId: 4,
-    firstName: "Yoav",
-    lastName: "Levi",
+    firstName: "Matan",
+    lastName: "Perez",
     createDate: "2026-03-08T14:20:00Z",
     updateDate: "2026-03-08T14:20:00Z",
     userRole: "user"
@@ -39,7 +39,7 @@ let users = [
   {
     userId: 5,
     firstName: "Maya",
-    lastName: "Friedman",
+    lastName: "Vertheimer",
     createDate: "2026-03-10T08:45:00Z",
     updateDate: "2026-03-10T08:45:00Z",
     userRole: "user"
