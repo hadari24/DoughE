@@ -1022,8 +1022,7 @@
               {
                 "key": "x-user-role",
                 "value": "admin",
-                "type": "text",
-                "disabled": true
+                "type": "text"
               }
             ],
             "url": {
@@ -1108,7 +1107,7 @@
                   }
                 ],
                 "url": {
-                  "raw": "http://localhost:3000/users/1",
+                  "raw": "http://localhost:3000/users/999",
                   "protocol": "http",
                   "host": [
                     "localhost"
@@ -1116,7 +1115,7 @@
                   "port": "3000",
                   "path": [
                     "users",
-                    "1"
+                    "999"
                   ]
                 }
               },
@@ -1220,7 +1219,7 @@
                 ],
                 "body": {
                   "mode": "raw",
-                  "raw": " {\"firstName\":\"Test\",\"lastName\":\"User\",\"userRole\":\"user\"} ",
+                  "raw": "{\"firstName\":\"Test\"} ",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -1295,7 +1294,7 @@
               }
             ],
             "url": {
-              "raw": "http://localhost:3000/users/4",
+              "raw": "http://localhost:3000/users/5",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -1303,7 +1302,7 @@
               "port": "3000",
               "path": [
                 "users",
-                "4"
+                "5"
               ]
             }
           },
@@ -1311,8 +1310,26 @@
             {
               "name": "Delete user - success",
               "originalRequest": {
-                "method": "GET",
-                "header": []
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "x-user-role",
+                    "value": "admin",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:3000/users/5",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "users",
+                    "5"
+                  ]
+                }
               },
               "_postman_previewlanguage": null,
               "header": null,
@@ -1322,13 +1339,37 @@
             {
               "name": "Delete user - 403",
               "originalRequest": {
-                "method": "GET",
-                "header": []
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "x-user-role",
+                    "value": "user",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:3000/users/4",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "users",
+                    "4"
+                  ]
+                }
               },
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": "{\r\n    \"success\": true,\r\n    \"data\": {\r\n        \"userId\": 4,\r\n        \"firstName\": \"Matan\",\r\n        \"lastName\": \"Perez\",\r\n        \"createDate\": \"2026-03-08T14:20:00Z\",\r\n        \"updateDate\": \"2026-03-08T14:20:00Z\",\r\n        \"userRole\": \"user\"\r\n    },\r\n    \"error\": null\r\n}"
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": ""
             }
           ]
         }
