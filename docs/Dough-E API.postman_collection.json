@@ -1,10 +1,10 @@
 {
   "info": {
-    "_postman_id": "bff4579c-68a0-4ed2-b2f5-f6a2344ceeb6",
+    "_postman_id": "c1c8084d-b413-4ab0-83e6-782153333bd3",
     "name": "Dough-E API",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "53886374",
-    "_collection_link": "https://go.postman.co/collection/53886374-bff4579c-68a0-4ed2-b2f5-f6a2344ceeb6?source=collection_link"
+    "_exporter_id": "55192832",
+    "_collection_link": "https://go.postman.co/collection/55192832-c1c8084d-b413-4ab0-83e6-782153333bd3?source=collection_link"
   },
   "item": [
     {
@@ -218,7 +218,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -282,7 +282,7 @@
               },
               "status": "Not Found",
               "code": 404,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -399,7 +399,7 @@
               },
               "status": "Created",
               "code": 201,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -476,7 +476,7 @@
               },
               "status": "Bad Request",
               "code": 400,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -553,7 +553,7 @@
               },
               "status": "Forbidden",
               "code": 403,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -672,7 +672,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -750,7 +750,7 @@
               },
               "status": "Not Found",
               "code": 404,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -793,8 +793,26 @@
         {
           "name": "Delete Recipe",
           "request": {
-            "method": "GET",
-            "header": []
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-user-role",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/recipes/5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "recipes",
+                "5"
+              ]
+            }
           },
           "response": [
             {
@@ -823,7 +841,7 @@
               },
               "status": "OK",
               "code": 200,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -887,7 +905,7 @@
               },
               "status": "Not Found",
               "code": 404,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -951,7 +969,7 @@
               },
               "status": "Forbidden",
               "code": 403,
-              "_postman_previewlanguage": null,
+              "_postman_previewlanguage": "Text",
               "header": [
                 {
                   "key": "X-Powered-By",
@@ -995,7 +1013,356 @@
     },
     {
       "name": "Users",
-      "item": []
+      "item": [
+        {
+          "name": "List all users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-role",
+                "value": "admin",
+                "type": "text",
+                "disabled": true
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user by id",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "x-user-role",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/users/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Get user by id -  success",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-user-role",
+                    "value": "admin",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:3000/users/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "users",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": "{\r\n    \"success\": true,\r\n    \"data\": {\r\n        \"userId\": 1,\r\n        \"firstName\": \"Hadar\",\r\n        \"lastName\": \"Ofer\",\r\n        \"createDate\": \"2026-03-01T10:00:00Z\",\r\n        \"updateDate\": \"2026-03-01T10:00:00Z\",\r\n        \"userRole\": \"admin\"\r\n    },\r\n    \"error\": null\r\n}"
+            },
+            {
+              "name": "Get user by id - 404",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "x-user-role",
+                    "value": "admin",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "http://localhost:3000/users/1",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "users",
+                    "1"
+                  ]
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "_postman_previewlanguage": "",
+              "header": [],
+              "cookie": [
+                {
+                  "expires": "Invalid Date",
+                  "domain": "",
+                  "path": ""
+                }
+              ],
+              "body": "{\r\n    \"success\": false,\r\n    \"data\": null,\r\n    \"error\": {\r\n        \"code\": \"NOT_FOUND\",\r\n        \"message\": \"User with id 999 was not found\",\r\n        \"details\": {\r\n            \"id\": 999\r\n        }\r\n    }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "x-user-role",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": " {\"firstName\":\"Test\",\"lastName\":\"User\",\"userRole\":\"user\"} ",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Create user - success",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-user-role",
+                    "value": "admin",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": " {\"firstName\":\"Test\",\"lastName\":\"User\",\"userRole\":\"user\"} ",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/users",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": "{\r\n    \"success\": true,\r\n    \"data\": [\r\n        {\r\n            \"userId\": 1,\r\n            \"firstName\": \"Hadar\",\r\n            \"lastName\": \"Ofer\",\r\n            \"createDate\": \"2026-03-01T10:00:00Z\",\r\n            \"updateDate\": \"2026-03-01T10:00:00Z\",\r\n            \"userRole\": \"admin\"\r\n        },\r\n        {\r\n            \"userId\": 2,\r\n            \"firstName\": \"Shir\",\r\n            \"lastName\": \"Battat\",\r\n            \"createDate\": \"2026-03-02T11:30:00Z\",\r\n            \"updateDate\": \"2026-03-02T11:30:00Z\",\r\n            \"userRole\": \"admin\"\r\n        },\r\n        {\r\n            \"userId\": 3,\r\n            \"firstName\": \"Noa\",\r\n            \"lastName\": \"Kirel\",\r\n            \"createDate\": \"2026-03-05T09:15:00Z\",\r\n            \"updateDate\": \"2026-03-05T09:15:00Z\",\r\n            \"userRole\": \"manager\"\r\n        },\r\n        {\r\n            \"userId\": 4,\r\n            \"firstName\": \"Matan\",\r\n            \"lastName\": \"Perez\",\r\n            \"createDate\": \"2026-03-08T14:20:00Z\",\r\n            \"updateDate\": \"2026-03-08T14:20:00Z\",\r\n            \"userRole\": \"user\"\r\n        },\r\n        {\r\n            \"userId\": 5,\r\n            \"firstName\": \"Maya\",\r\n            \"lastName\": \"Vertheimer\",\r\n            \"createDate\": \"2026-03-10T08:45:00Z\",\r\n            \"updateDate\": \"2026-03-10T08:45:00Z\",\r\n            \"userRole\": \"user\"\r\n        }\r\n    ],\r\n    \"error\": null\r\n}"
+            },
+            {
+              "name": "Create user - validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "x-user-role",
+                    "value": "admin",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": " {\"firstName\":\"Test\",\"lastName\":\"User\",\"userRole\":\"user\"} ",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "http://localhost:3000/users",
+                  "protocol": "http",
+                  "host": [
+                    "localhost"
+                  ],
+                  "port": "3000",
+                  "path": [
+                    "users"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": "{\r\n    \"success\": false,\r\n    \"data\": null,\r\n    \"error\": {\r\n        \"code\": \"VALIDATION_ERROR\",\r\n        \"message\": \"Missing required fields: lastName, userRole\",\r\n        \"details\": {\r\n            \"missing\": [\r\n                \"lastName\",\r\n                \"userRole\"\r\n            ]\r\n        }\r\n    }\r\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-user-role",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\"firstName\":\"Shir\",\"lastName\":\"Ba\",\"userRole\":\"admin\"}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/2",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "2"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "x-user-role",
+                "value": "admin",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "http://localhost:3000/users/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "4"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Delete user - success",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": null
+            },
+            {
+              "name": "Delete user - 403",
+              "originalRequest": {
+                "method": "GET",
+                "header": []
+              },
+              "_postman_previewlanguage": null,
+              "header": null,
+              "cookie": [],
+              "body": "{\r\n    \"success\": true,\r\n    \"data\": {\r\n        \"userId\": 4,\r\n        \"firstName\": \"Matan\",\r\n        \"lastName\": \"Perez\",\r\n        \"createDate\": \"2026-03-08T14:20:00Z\",\r\n        \"updateDate\": \"2026-03-08T14:20:00Z\",\r\n        \"userRole\": \"user\"\r\n    },\r\n    \"error\": null\r\n}"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "packages": {},
+        "requests": {},
+        "exec": [
+          ""
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "x-user-role",
+      "value": ""
     }
   ]
 }
