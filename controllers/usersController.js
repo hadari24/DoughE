@@ -1,6 +1,3 @@
-// controllers/usersController.js
-// Controllers receive the HTTP request, validate input,
-// call the model, then send a response in our standard format.
 
 const usersData = require('../models/usersData');
 const { success, error } = require('../utils/response');
@@ -45,7 +42,6 @@ function create(req, res) {
       { missing }, 400);
   }
 
-  // Whitelist allowed roles — prevents typos like "Admin" or "guest" sneaking in
   const allowedRoles = ['admin', 'manager', 'user'];
   if (!allowedRoles.includes(userRole)) {
     return error(res, 'VALIDATION_ERROR',
@@ -54,7 +50,6 @@ function create(req, res) {
   }
 
   const newUser = usersData.add({ firstName, lastName, userRole });
-  // 201 = Created (POST that creates a resource)
   return success(res, { userId: newUser.userId, user: newUser }, 201);
 }
 

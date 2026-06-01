@@ -1,7 +1,3 @@
-// models/usersData.js
-// In-memory "database" — an array of users + helper functions.
-// In assignment 3 this whole file will be replaced by MySQL queries,
-// but the function signatures (getAll, getById, ...) will stay the same.
 
 let users = [
   {
@@ -58,12 +54,13 @@ function getById(id) {
 }
 
 function add(userData) {
+  // Create a new user object with a unique id and timestamps, add to array, and return it.
   const now = new Date().toISOString();
   const newUser = {
     userId: nextId++,
     firstName: userData.firstName,
     lastName: userData.lastName,
-    userRole: userData.userRole || 'user', // default role if not provided
+    userRole: userData.userRole || 'user', 
     createDate: now,
     updateDate: now
   };
@@ -72,8 +69,9 @@ function add(userData) {
 }
 
 function update(id, userData) {
+  // Find the user by id. If not found, return null.
   const user = users.find(u => u.userId === id);
-  if (!user) return null; // null signals "not found" to the controller
+  if (!user) return null; 
   user.firstName = userData.firstName;
   user.lastName = userData.lastName;
   user.userRole = userData.userRole;
@@ -82,9 +80,10 @@ function update(id, userData) {
 }
 
 function remove(id) {
+  // Find the index of the user by id. If not found, return null.
   const index = users.findIndex(u => u.userId === id);
   if (index === -1) return null;
-  const [removed] = users.splice(index, 1); // splice removes in place
+  const [removed] = users.splice(index, 1); // splice returns an array of removed items, we want the first one
   return removed;
 }
 
