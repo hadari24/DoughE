@@ -1,7 +1,6 @@
 # Dough-E API
 
-A RESTful backend API for managing dough recipes and users.  
-Built with Node.js and Express, using in-memory mock data (no database).
+A backend API for managing dough recipes and users.  
 
 **Authors:** Hadar Ofer & Shir Battat  
 **Course:** Internet Development Environments — Assignment 2
@@ -22,11 +21,6 @@ npm install
 npm start
 ```
 
-Or alternatively:
-
-```bash
-node server.js
-```
 
 ### 3. Port & Base URL
 

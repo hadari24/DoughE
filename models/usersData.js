@@ -42,7 +42,7 @@ let users = [
   }
 ];
 
-// Auto-incremented id for new users. Resets on server restart (in-memory).
+//reset on auto-incremation server restart 
 let nextId = 6;
 
 function getAll() {
@@ -54,7 +54,7 @@ function getById(id) {
 }
 
 function add(userData) {
-  // Create a new user object with a unique id and timestamps, add to array, and return it.
+  //create new user object: (unique id, timestamps) then add to array, and return it.
   const now = new Date().toISOString();
   const newUser = {
     userId: nextId++,
@@ -69,7 +69,7 @@ function add(userData) {
 }
 
 function update(id, userData) {
-  // Find the user by id. If not found, return null.
+  // find user by id. if not found, return null.
   const user = users.find(u => u.userId === id);
   if (!user) return null; 
   user.firstName = userData.firstName;
@@ -80,10 +80,10 @@ function update(id, userData) {
 }
 
 function remove(id) {
-  // Find the index of the user by id. If not found, return null.
+  // find index of user by id. if not found, return null.
   const index = users.findIndex(u => u.userId === id);
   if (index === -1) return null;
-  const [removed] = users.splice(index, 1); // splice returns an array of removed items, we want the first one
+  const [removed] = users.splice(index, 1); 
   return removed;
 }
 
