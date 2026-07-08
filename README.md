@@ -51,7 +51,18 @@ Available roles: `admin`, `manager`, `user`
 |---------|----------------------------------------------------------|
 | admin   | All actions on all resources                             |
 | manager | Read + update on all resources; create recipes only      |
-| user    | Read only                                                |
+| user    | Read; update **their own** user record only              |
+
+### Self-update (`x-user-id`)
+
+A regular `user` may update **only their own** user record. To do this, send both headers:
+
+```
+x-user-role: user
+x-user-id: <your own userId>
+```
+
+The `x-user-id` must match the `:id` in the route. `admin` and `manager` can update any user and do not need `x-user-id`.
 
 ---
 
@@ -462,6 +473,7 @@ GET http://localhost:3000/users/1
 #### PUT /users/:id — Update a user
 
 **Required header:** `x-user-role: admin` or `x-user-role: manager`
+A regular `user` may also update **their own** record by sending `x-user-role: user` **and** `x-user-id: <their id>` (must match `:id`). Otherwise they receive `403`.
 
 **Request body (all fields required):**
 ```json

@@ -1,31 +1,29 @@
-// server.js
 const express = require('express');
 const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
 
-// Built-in middlewares
 app.use(cors());
 app.use(express.json());
 
-// Logger middleware (written by Hadar in middleware/logger.js)
+// logger middleware
 const logger = require('./middleware/logger');
 app.use(logger);
 
-// Routes — each route file is written by its owner
+// routes
 const usersRoutes = require('./routes/users');
 const recipesRoutes = require('./routes/recipes');
 
 app.use('/users', usersRoutes);
 app.use('/recipes', recipesRoutes);
 
-// Health check
+
 app.get('/', (req, res) => {
   res.json({ success: true, data: { message: 'Dough-E API is running' }, error: null });
 });
 
-// 404 for unknown routes
+// 404 for unknown
 app.use((req, res) => {
   res.status(404).json({
     success: false,
@@ -34,7 +32,7 @@ app.use((req, res) => {
   });
 });
 
-// Global error handler (written by Hadar in middleware/errorHandler.js)
+// global error handler
 const errorHandler = require('./middleware/errorHandler');
 app.use(errorHandler);
 

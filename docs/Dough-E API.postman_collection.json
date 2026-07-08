@@ -1283,6 +1283,46 @@
           "response": []
         },
         {
+          "name": "Update user -- self",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "x-user-role",
+                "value": "user",
+                "type": "text"
+              },
+              {
+                "key": "x-user-id",
+                "value": "4",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n  \"firstName\": \"Matan\",\r\n  \"lastName\": \"Perez\",\r\n  \"userRole\": \"user\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/users/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "users",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "Delete user",
           "request": {
             "method": "DELETE",

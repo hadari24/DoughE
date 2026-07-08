@@ -2,19 +2,19 @@
 const express = require('express');
 const router = express.Router();
 const usersController = require('../controllers/usersController');
-const { requireRole } = require('../middleware/auth');
+const { requireRole, requireSelfOrRole } = require('../middleware/auth');
 
 
 router.get('/',    requireRole('admin', 'manager', 'user'), usersController.list);
 router.get('/:id', requireRole('admin', 'manager', 'user'), usersController.get);
 
-// Create — admin only
+// create — admin only
 router.post('/', requireRole('admin'), usersController.create);
 
-// Update — admin + manager
-router.put('/:id', requireRole('admin', 'manager'), usersController.update);
+// update — admin + manager / regular user updating their own record
+router.put('/:id', requireSelfOrRole('admin', 'manager'), usersController.update);
 
-// Delete — admin only
+// delete — admin only
 router.delete('/:id', requireRole('admin'), usersController.remove);
 
 module.exports = router;
