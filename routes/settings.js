@@ -23,8 +23,6 @@ router.put('/', (req, res) => {
     return error(res, 'VALIDATION_ERROR', 'All fields are required', {}, 400);
   }
 
-  settings = { email, theme };
-
   const users = getAllUsers();
   const user = users.find(u => u.userId === userId);
   if (user) {

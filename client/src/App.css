@@ -44,3 +44,10 @@
   margin-right: 20px;
 }
 
+.login-logo-img {
+  height: 85px;
+  width: auto;
+  display: block;
+  margin: 0 auto 8px;
+}
+

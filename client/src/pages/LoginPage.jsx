@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { login } from '../services/authService';
+import logo from '../logo.png';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -40,7 +41,8 @@ function LoginPage() {
   return (
     <div className="login-page">
       <div className="login-box">
-        <h1>🥖 Dough-E</h1>
+        <img src={logo} alt="Dough-E logo" className="login-logo-img" />
+        <h1>Dough-E</h1>
         <h2>Welcome back!</h2>
         <form onSubmit={handleSubmit}>
           <input

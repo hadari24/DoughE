@@ -111,7 +111,7 @@ On error:
 
 ---
 
-#### GET /recipes — Get all recipes
+#### GET /api/recipes — Get all recipes
 
 No authentication required.
 
@@ -125,7 +125,7 @@ No authentication required.
 
 **Example request:**
 ```
-GET http://localhost:3000/recipes?difficulty=easy
+GET http://localhost:3000/api/recipes?difficulty=easy
 ```
 
 **Example success response (200):**
@@ -155,13 +155,13 @@ GET http://localhost:3000/recipes?difficulty=easy
 
 ---
 
-#### GET /recipes/:id — Get recipe by ID
+#### GET /api/recipes/:id — Get recipe by ID
 
 No authentication required.
 
 **Example request:**
 ```
-GET http://localhost:3000/recipes/1
+GET http://localhost:3000/api/recipes/1
 ```
 
 **Example success response (200):**
@@ -201,7 +201,7 @@ GET http://localhost:3000/recipes/1
 
 ---
 
-#### POST /recipes — Create a new recipe
+#### POST /api/recipes — Create a new recipe
 
 **Required header:** `x-user-role: admin` or `x-user-role: manager`
 
@@ -258,7 +258,7 @@ GET http://localhost:3000/recipes/1
 
 ---
 
-#### PUT /recipes/:id — Update a recipe (partial)
+#### PUT /api/recipes/:id — Update a recipe (partial)
 
 **Required header:** `x-user-role: admin` or `x-user-role: manager`
 
@@ -296,13 +296,13 @@ Only the fields you include will be updated. All fields are optional but at leas
 
 ---
 
-#### DELETE /recipes/:id — Delete a recipe
+#### DELETE /api/recipes/:id — Delete a recipe
 
 **Required header:** `x-user-role: admin`
 
 **Example request:**
 ```
-DELETE http://localhost:3000/recipes/1
+DELETE http://localhost:3000/api/recipes/1
 ```
 
 **Example success response (200):**
@@ -333,13 +333,13 @@ DELETE http://localhost:3000/recipes/1
 
 ---
 
-#### GET /users — Get all users
+#### GET /api/users — Get all users
 
 **Required header:** `x-user-role: admin`, `manager`, or `user`
 
 **Example request:**
 ```
-GET http://localhost:3000/users
+GET http://localhost:3000/api/users
 ```
 
 **Example success response (200):**
@@ -375,13 +375,13 @@ GET http://localhost:3000/users
 
 ---
 
-#### GET /users/:id — Get user by ID
+#### GET /api/users/:id — Get user by ID
 
 **Required header:** `x-user-role: admin`, `manager`, or `user`
 
 **Example request:**
 ```
-GET http://localhost:3000/users/1
+GET http://localhost:3000/api/users/1
 ```
 
 **Example success response (200):**
@@ -415,7 +415,7 @@ GET http://localhost:3000/users/1
 
 ---
 
-#### POST /users — Create a new user
+#### POST /api/users — Create a new user
 
 **Required header:** `x-user-role: admin`
 
@@ -464,7 +464,7 @@ GET http://localhost:3000/users/1
 
 ---
 
-#### PUT /users/:id — Update a user
+#### PUT /api/users/:id — Update a user
 
 **Required header:** `x-user-role: admin` or `x-user-role: manager`
 A regular `user` may also update **their own** record by sending `x-user-role: user` **and** `x-user-id: <their id>` (must match `:id`). Otherwise they receive `403`.
@@ -512,13 +512,13 @@ A regular `user` may also update **their own** record by sending `x-user-role: u
 
 ---
 
-#### DELETE /users/:id — Delete a user
+#### DELETE /api/users/:id — Delete a user
 
 **Required header:** `x-user-role: admin`
 
 **Example request:**
 ```
-DELETE http://localhost:3000/users/4
+DELETE http://localhost:3000/api/users/4
 ```
 
 **Example success response (200):**

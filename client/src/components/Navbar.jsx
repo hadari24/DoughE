@@ -8,11 +8,15 @@ function Navbar() {
   const [userName, setUserName] = useState(localStorage.getItem('userName'));
 
   useEffect(() => {
-  const userId = localStorage.getItem('userId');
-  if (userId && userId !== 'guest') {
-    getMe(userId).then(res => setUserName(res.data.data.firstName));
-  }
-}, []);
+    const userId = localStorage.getItem('userId');
+    if (userId && userId !== 'guest') {
+      getMe(userId).then(res => setUserName(res.data.data.userName));
+    }
+
+    const handleStorage = () => setUserName(localStorage.getItem('userName'));
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, []);
 
   const handleLogout = async () => {
     await logout();

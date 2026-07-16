@@ -6,4 +6,6 @@ export const getSettings = () =>
   });
 
 export const updateSettings = (settings) =>
-  api.put('/settings', settings);
+  api.put('/settings', settings, {
+    headers: { 'x-user-id': localStorage.getItem('userId') }
+  });

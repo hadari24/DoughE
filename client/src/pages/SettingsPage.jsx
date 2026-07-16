@@ -30,6 +30,9 @@ function SettingsPage() {
     if (!form.userName || !form.email || !form.theme) {
       return setError('All fields are required');
     }
+    if (!/\S+@\S+\.\S+/.test(form.email)) {
+      return setError('Please enter a valid email');
+    }
     setSaving(true);
     setError('');
     setSuccess('');

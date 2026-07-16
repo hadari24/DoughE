@@ -58,7 +58,7 @@ function DashboardPage() {
           <option value="">All Families</option>
           <option value="yeast-based">Yeast-based</option>
           <option value="sourdough">Sourdough</option>
-          <option value="butter">Butter</option>
+          <option value="batter">Batter</option>
           <option value="laminated">Laminated</option>
           <option value="flatbread">Flatbread</option>
           <option value="enriched">Enriched</option>

@@ -3,7 +3,7 @@ import { useState } from 'react';
 const familyEmoji = {
   'yeast-based': '🍕',
   'sourdough': '🍞',
-  'butter': '🥞',
+  'batter': '🥞',
   'laminated': '🥐',
   'flatbread': '🫓',
   'enriched': '🍰'
