@@ -3,11 +3,6 @@ const router = express.Router();
 const { getAllUsers } = require('../models/usersData');
 const { success, error } = require('../utils/response');
 
-let settings = {
-  email: 'hadar@dough.com', // default settings for all users
-  theme: 'light'
-};
-
 router.get('/', (req, res) => {
   const userId = parseInt(req.headers['x-user-id']);
   const users = getAllUsers();
@@ -15,8 +10,8 @@ router.get('/', (req, res) => {
 
   return success(res, {
     userName: user ? user.userName : '',
-    email: settings.email,
-    theme: settings.theme
+    email: user ? user.email : '',
+    theme: (user && user.theme) || 'light'
   });
 });
 
@@ -34,6 +29,8 @@ router.put('/', (req, res) => {
   const user = users.find(u => u.userId === userId);
   if (user) {
     user.userName = userName;
+    user.email = email;
+    user.theme = theme;
   }
 
   return success(res, { userName, email, theme });

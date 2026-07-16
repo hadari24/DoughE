@@ -7,6 +7,7 @@ let users = [
     userName: "Hadar",
     email: "hadar@dough.com",
     password: "123456",
+    theme: "light",
     createDate: "2026-03-01T10:00:00Z",
     updateDate: "2026-03-01T10:00:00Z",
     userRole: "admin"
@@ -18,6 +19,7 @@ let users = [
     userName: "Shir",
     email: "shir@dough.com",
     password: "abcdef",
+    theme: "light",
     createDate: "2026-03-02T11:30:00Z",
     updateDate: "2026-03-02T11:30:00Z",
     userRole: "admin"
@@ -29,6 +31,7 @@ let users = [
     userName: "Noa",
     email: "noa@dough.com",
     password: "pass123",
+    theme: "light",
     createDate: "2026-03-05T09:15:00Z",
     updateDate: "2026-03-05T09:15:00Z",
     userRole: "manager"
@@ -40,6 +43,7 @@ let users = [
     userName: "Matan",
     email: "matan@dough.com",
     password: "qwerty",
+    theme: "light",
     createDate: "2026-03-08T14:20:00Z",
     updateDate: "2026-03-08T14:20:00Z",
     userRole: "user"
@@ -51,6 +55,7 @@ let users = [
     userName: "Maya",
     email: "maya@dough.com",
     password: "zxcvbn",
+    theme: "light",
     createDate: "2026-03-10T08:45:00Z",
     updateDate: "2026-03-10T08:45:00Z",
     userRole: "user"
