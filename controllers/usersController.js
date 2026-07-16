@@ -1,10 +1,9 @@
-
 const usersData = require('../models/usersData');
 const { success, error } = require('../utils/response');
 
 // GET /users — list all users
 function list(req, res) {
-  const allUsers = usersData.getAll();
+  const allUsers = usersData.getAllUsers();
   return success(res, allUsers);
 }
 
@@ -17,10 +16,25 @@ function get(req, res) {
       { param: 'id', received: req.params.id }, 400);
   }
 
-  const user = usersData.getById(id);
+  const user = usersData.getUserById(id);
   if (!user) {
     return error(res, 'NOT_FOUND', `User with id ${id} was not found`,
       { id }, 404);
+  }
+
+  return success(res, user);
+}
+
+// GET /users/me — fetch the current logged-in user
+function me(req, res) {
+  const userId = parseInt(req.headers['x-user-id']);
+  if (!userId) {
+    return error(res, 'UNAUTHORIZED', 'Missing x-user-id header', {}, 401);
+  }
+
+  const user = usersData.getUserById(userId);
+  if (!user) {
+    return error(res, 'NOT_FOUND', 'User not found', {}, 404);
   }
 
   return success(res, user);
@@ -49,7 +63,7 @@ function create(req, res) {
       { received: userRole, allowed: allowedRoles }, 400);
   }
 
-  const newUser = usersData.add({ firstName, lastName, userRole });
+  const newUser = usersData.addUser({ firstName, lastName, userRole });
   return success(res, { userId: newUser.userId, user: newUser }, 201);
 }
 
@@ -68,7 +82,7 @@ function update(req, res) {
       { required: ['firstName', 'lastName', 'userRole'] }, 400);
   }
 
-  const updated = usersData.update(id, { firstName, lastName, userRole });
+  const updated = usersData.updateUser(id, { firstName, lastName, userRole });
   if (!updated) {
     return error(res, 'NOT_FOUND', `User with id ${id} was not found`,
       { id }, 404);
@@ -85,7 +99,7 @@ function remove(req, res) {
       { param: 'id' }, 400);
   }
 
-  const removed = usersData.remove(id);
+  const removed = usersData.removeUser(id);
   if (!removed) {
     return error(res, 'NOT_FOUND', `User with id ${id} was not found`,
       { id }, 404);
@@ -94,4 +108,4 @@ function remove(req, res) {
   return success(res, { userId: removed.userId, message: 'User deleted' });
 }
 
-module.exports = { list, get, create, update, remove };
+module.exports = { list, get, me, create, update, remove};

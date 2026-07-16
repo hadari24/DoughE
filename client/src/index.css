@@ -1,0 +1,594 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f0e8;
+  background-image: url('./background.jpg');
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+/* NAVBAR */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 40px;
+  background-color: rgba(255, 248, 235, 0.97);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.navbar-left {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+}
+
+.navbar-left a {
+  text-decoration: none;
+  color: #6b3f1f;
+}
+
+.navbar-logo {
+  display: inline-flex;
+  align-items: center;
+  font-size: 22px;
+  font-weight: bold;
+  color: #6b3f1f;
+  text-decoration: none;
+  padding-right: 16px;
+  border-right: 2px solid #d4b896;
+}
+
+.navbar-links {
+  display: flex;
+  gap: 24px;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  color: #6b3f1f;
+  font-size: 16px;
+}
+
+.navbar-links a:hover {
+  text-decoration: underline;
+}
+
+.navbar-user {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: #6b3f1f;
+}
+
+.navbar-user button {
+  background-color: #c1693a;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.navbar-user button:hover {
+  background-color: #a0522d;
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: rgba(255, 248, 235, 0.97);
+  color: #6b3f1f;
+  margin-top: 40px;
+  font-size: 14px;
+}
+
+.footer-bold {
+  font-weight: 700;
+  font-size: 20px;
+}
+
+/* LOGIN PAGE */
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-box {
+  background-color: rgba(255, 248, 235, 0.97);
+  padding: 48px 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12);
+  width: 360px;
+  text-align: center;
+}
+
+.login-box h1 {
+  font-size: 32px;
+  color: #6b3f1f;
+  margin-bottom: 8px;
+}
+
+.login-box h2 {
+  font-size: 18px;
+  color: #a0522d;
+  margin-bottom: 24px;
+}
+
+.login-box form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.login-box input {
+  padding: 12px 16px;
+  border: 1px solid #d4b896;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: #fffaf4;
+}
+
+.login-box button {
+  padding: 12px;
+  background-color: #c1693a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.login-box button:hover {
+  background-color: #a0522d;
+}
+
+/* DASHBOARD */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 0px 220px 10px 220px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.dashboard-content h1 {
+  color: #6b3f1f;
+  margin-bottom: 24px;
+}
+
+.dashboard-content h2 {
+  color: #6b3f1f;
+  flex-wrap: wrap;
+}
+
+.search-input {
+  padding: 10px 16px;
+  border: 1px solid #d4b896;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: #fffaf4;
+  width: 300px;
+  margin-bottom: 24px;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.filters select,
+.filters input {
+  padding: 10px 16px;
+  border: 1px solid #d4b896;
+  border-radius: 10px;
+  font-size: 14px;
+  background-color: #fffaf4;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 24px;
+
+}.toggle-button {
+  position: relative;
+  top: 185px;
+  left: 200px;
+  padding: 8px 20px;
+  background-color: #c1693a;
+  color: white;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 100;
+}
+
+.toggle-button:hover {
+  background-color: #a0522d;
+}
+
+/* RECIPE CARD */
+.recipe-card {
+  background-color: rgba(255, 248, 235, 0.97);
+  border-radius: 16px;
+  padding: 24px;
+  width: 220px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.recipe-card h3 {
+  color: #6b3f1f;
+  margin-bottom: 10px;
+}
+
+.recipe-card p {
+  color: #7a5c3e;
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.cards-grid {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.recipe-card-emoji {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-box {
+  background: #fffaf4;
+  border-radius: 16px;
+  padding: 32px;
+  width: 500px;
+  max-height: 80vh;
+  overflow-y: auto;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+.modal-box h2 {
+  color: #6b3f1f;
+  margin-bottom: 12px;
+  text-align: center;
+}
+
+.modal-box h3 {
+  color: #6b3f1f;
+  margin: 16px 0 8px;
+}
+
+.modal-box p {
+  color: #6b3f1f;
+  margin-bottom: 6px;
+  text-align: center;
+}
+
+.modal-box ul, .modal-box ol {
+  padding-left: 20px;
+  color: #7a5c3e;
+  text-align: left;
+}
+
+.modal-box li {
+  margin-bottom: 4px;
+}
+
+.modal-box button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 24px;
+  background-color: #c1693a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.modal-box button:hover {
+  background-color: #a0522d;
+}
+
+.card-hint {
+  font-size: 8px;
+  color: #a0522d;
+  margin-top: auto;
+  padding-top: 12px;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+.table-hint {
+  font-size: 13px;
+  color: #a0522d;
+  margin-top: 0;
+  padding-top: 0;
+  padding-bottom: 12px;
+  font-style: italic;
+  opacity: 0.7;
+}
+
+/* TABLE */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: rgba(255, 248, 235, 0.97);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba
+}
+
+th {
+  background-color: #c1693a;
+  color: white;
+  padding: 12px 16px;
+  text-align: center;
+}
+
+td {
+  padding: 12px 16px;
+  color: #6b3f1f;
+  border-bottom: 1px solid #e8d9c5;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* SETTINGS */
+.settings-content {
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.settings-content h1 {
+  color: #6b3f1f;
+  margin-bottom: 24px;
+}
+
+.settings-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 400px;
+  text-align: left;
+}
+
+.settings-form label {
+  color: #6b3f1f;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.settings-form input,
+.settings-form select {
+  padding: 12px 16px;
+  border: 1px solid #d4b896;
+  border-radius: 10px;
+  font-size: 15px;
+  background-color: #fffaf4;
+}
+
+.settings-form button {
+  padding: 12px;
+  background-color: #c1693a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.settings-form button:hover {
+  background-color: #a0522d;
+}
+
+/* MESSAGES */
+.error-message {
+  color: #c0392b;
+  font-size: 14px;
+}
+
+.success-message {
+  color: #27ae60;
+  font-size: 14px;
+}
+
+.login-box .guest-button {
+  background: none !important;
+  color: #a0522d;
+  border: none !important;
+  font-size: 13px;
+  text-decoration: underline;
+  cursor: pointer;
+  width: 100%;
+  padding: 8px;
+}
+
+.login-box .guest-button:hover {
+  background: none !important;
+  color: #6b3f1f;
+}
+
+
+/* DARK MODE */
+
+body.dark .navbar {
+  background-color: #623802;
+}
+
+body.dark {
+  background-color: #623802;
+  background-image:  url('./dark-background.jpg');
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #d1c5be;
+}
+
+body.dark .navbar-left a,
+body.dark .navbar-logo,
+body.dark .navbar-user span {
+  color: #d1c5be;
+}
+
+body.dark h1,
+body.dark h2,
+body.dark h3,
+body.dark label,
+body.dark p,
+body.dark span,
+body.dark td {
+  color: #d1c5be;
+}
+
+body.dark button {
+  background-color: #daa484;
+  color: #2c1a0e;
+}
+
+body.dark button:hover {
+  background-color: #c4845e;
+}
+
+body.dark footer {
+  background-color: #623802;
+  color: #d1c5be;
+}
+
+body.dark .recipe-card {
+  background-color: #c4845e;
+  color: #d1c5be;
+}
+
+body.dark table {
+  background-color: #d1c5be;
+}
+
+body.dark th {
+  background-color: #623802;
+  color: #d1c5be;
+}
+
+body.dark td {
+  background-color: #d1c5be;
+  color: #623802;
+  border-bottom: 1px solid #3d2410;
+}
+
+/* PINK MODE */
+
+body.pink {
+  background-image: url('./pink-background.jpg');
+  background-repeat: repeat;
+  background-attachment: fixed;
+  color: #820b62;
+}
+
+body.pink .navbar {
+  background-color: #f5c8e9;
+}
+
+body.pink .search-input,
+body.pink .filters select,
+body.pink .filters input {
+  background-color: #f5c8e9;
+  border: 1px solid #f03dc0;
+  color: #820b62;
+}
+
+body.pink h1,
+body.pink h2,
+body.pink h3,
+body.pink label,
+body.pink p,
+body.pink span {
+  color: #820b62;
+}
+
+body.pink .search-input::placeholder,
+body.pink .filters input::placeholder {
+  color: #820b62;
+}
+
+body.pink button {
+  background-color: #f03dc0;
+  color: #f5c8e9;
+}
+
+body.pink button:hover {
+  background-color: #f161cb;
+}
+
+body.pink .recipe-card {
+  background-color: #f5c8e9;
+  color: #820b62;
+}
+
+body.pink table {
+  background-color: #f5c8e9;
+}
+
+body.pink th {
+  background-color: #f03dc0;
+  color: #f5c8e9;
+}
+
+body.pink td {
+  background-color: #f5c8e9;
+  color: #820b62;
+  border-bottom: 1px solid #f38ad7;
+}
+
+body.pink footer {
+  background-color: #f5c8e9;
+  color: #820b62;
+}

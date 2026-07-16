@@ -4,6 +4,9 @@ let users = [
     userId: 1,
     firstName: "Hadar",
     lastName: "Ofer",
+    userName: "Hadar",
+    email: "hadar@dough.com",
+    password: "123456",
     createDate: "2026-03-01T10:00:00Z",
     updateDate: "2026-03-01T10:00:00Z",
     userRole: "admin"
@@ -12,6 +15,9 @@ let users = [
     userId: 2,
     firstName: "Shir",
     lastName: "Battat",
+    userName: "Shir",
+    email: "shir@dough.com",
+    password: "abcdef",
     createDate: "2026-03-02T11:30:00Z",
     updateDate: "2026-03-02T11:30:00Z",
     userRole: "admin"
@@ -20,6 +26,9 @@ let users = [
     userId: 3,
     firstName: "Noa",
     lastName: "Kirel",
+    userName: "Noa",
+    email: "noa@dough.com",
+    password: "pass123",
     createDate: "2026-03-05T09:15:00Z",
     updateDate: "2026-03-05T09:15:00Z",
     userRole: "manager"
@@ -28,6 +37,9 @@ let users = [
     userId: 4,
     firstName: "Matan",
     lastName: "Perez",
+    userName: "Matan",
+    email: "matan@dough.com",
+    password: "qwerty",
     createDate: "2026-03-08T14:20:00Z",
     updateDate: "2026-03-08T14:20:00Z",
     userRole: "user"
@@ -36,25 +48,28 @@ let users = [
     userId: 5,
     firstName: "Maya",
     lastName: "Vertheimer",
+    userName: "Maya",
+    email: "maya@dough.com",
+    password: "zxcvbn",
     createDate: "2026-03-10T08:45:00Z",
     updateDate: "2026-03-10T08:45:00Z",
     userRole: "user"
   }
 ];
 
-//reset on auto-incremation server restart 
+// Auto-incremented id for new users. Resets on server restart (in-memory).
 let nextId = 6;
 
-function getAll() {
+function getAllUsers() {
   return users;
 }
 
-function getById(id) {
+function getUserById(id) {
   return users.find(u => u.userId === id);
 }
 
-function add(userData) {
-  //create new user object: (unique id, timestamps) then add to array, and return it.
+function addUser(userData) {
+  // Create a new user object with a unique id and timestamps, add to array, and return it.
   const now = new Date().toISOString();
   const newUser = {
     userId: nextId++,
@@ -68,8 +83,8 @@ function add(userData) {
   return newUser;
 }
 
-function update(id, userData) {
-  // find user by id. if not found, return null.
+function updateUser(id, userData) {
+  // Find the user by id. If not found, return null.
   const user = users.find(u => u.userId === id);
   if (!user) return null; 
   user.firstName = userData.firstName;
@@ -79,12 +94,12 @@ function update(id, userData) {
   return user;
 }
 
-function remove(id) {
-  // find index of user by id. if not found, return null.
+function removeUser(id) {
+  // Find the index of the user by id. If not found, return null.
   const index = users.findIndex(u => u.userId === id);
   if (index === -1) return null;
-  const [removed] = users.splice(index, 1); 
+  const [removed] = users.splice(index, 1); // splice returns an array of removed items, we want the first one
   return removed;
 }
 
-module.exports = { getAll, getById, add, update, remove };
+module.exports = { getAllUsers, getUserById, addUser, updateUser, removeUser };

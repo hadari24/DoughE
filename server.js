@@ -15,9 +15,13 @@ app.use(logger);
 const usersRoutes = require('./routes/users');
 const recipesRoutes = require('./routes/recipes');
 
-app.use('/users', usersRoutes);
-app.use('/recipes', recipesRoutes);
+app.use('/api/users', usersRoutes);
+app.use('/api/recipes', recipesRoutes);
 
+const authRoutes = require('./routes/auth');
+const settingsRoutes = require('./routes/settings');
+app.use('/api/auth', authRoutes);
+app.use('/api/settings', settingsRoutes);
 
 app.get('/', (req, res) => {
   res.json({ success: true, data: { message: 'Dough-E API is running' }, error: null });
