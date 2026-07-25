@@ -5,3 +5,8 @@ node_modules/
 .vscode/
 .postman/
 postman/
+
+# demo video is too large for GitHub (>100MB) — keep it out of git, include it in the submission ZIP
+*.mp4
+*.mov
+docs/screenshots/Assignment4/DemenstrationVideo/
