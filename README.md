@@ -1,582 +1,252 @@
-# Dough-E API
+# Dough-E
 
-A backend API for managing dough recipes and users.  
+A full-stack web application for browsing, managing, rating, and discussing dough recipes.
+Users log in, browse recipes (cards or a sortable table), open a recipe to see ingredients
+and steps, chat about it in **real time**, rate it with stars, like recipes to save them to
+their profile, and ask an **AI baking assistant** for help.
 
-**Authors:** Hadar Ofer & Shir Battat  
-**Course:** Internet Development Environments — Assignment 2
-
----
-
-## Setup & Running
-
-### 1. Install dependencies
-
-```bash
-npm install
-```
-
-### 2. Start the server
-
-```bash
-npm start
-```
-
-
-### 3. Port & Base URL
-
-- **Port:** `3000`
-- **Base URL:** `http://localhost:3000`
-- **API base path:** `/`
+**Authors:** Hadar Ofer & Shir Battat
+**Course:** Internet Development Environments — Assignment 4
 
 ---
 
-## Authentication
+## Tech stack
 
-This API uses a mock role-based header — no real login required.  
-Include this header on requests that require authorization:
-
-```
-x-user-role: admin
-```
-
-Available roles: `admin`, `manager`, `user`
-
-| Role    | Allowed actions                                          |
-|---------|----------------------------------------------------------|
-| admin   | All actions on all resources                             |
-| manager | Read + update on all resources; create recipes only      |
-| user    | Read; update **their own** user record only              |
-
-### Self-update (`x-user-id`)
-
-A regular `user` may update **only their own** user record. To do this, send both headers:
-
-```
-x-user-role: user
-x-user-id: <your own userId>
-```
-
-The `x-user-id` must match the `:id` in the route. `admin` and `manager` can update any user and do not need `x-user-id`.
+- **Frontend:** React (Create React App), React Router, Axios, socket.io-client
+- **Backend:** Node.js, Express
+- **Database:** MySQL
+- **ORM:** Sequelize
+- **Real-time:** Socket.IO
+- **AI:** Groq (OpenAI-compatible API; swappable)
 
 ---
 
-## Assumptions
-
-- **Data is in-memory.** All data resets when the server restarts. There is no database.
-- **IDs are auto-incremented integers.** Recipe IDs start at 1 (seed data goes up to 6), new ones start at 7. User IDs start at 1 (seed data goes up to 5), new ones start at 6.
-- **IDs are assigned by the server.** You cannot set an ID manually when creating a resource.
-- **PUT for recipes is a partial update.** Only the fields you send will be updated; omitted fields remain unchanged.
-- **PUT for users is a full update.** All three fields (`firstName`, `lastName`, `userRole`) are required.
-- **Role validation:** `userRole` must be one of `admin`, `manager`, `user`.
-- **No real authentication.** The `x-user-role` header is trusted as-is — this simulates auth for testing purposes.
-
----
-
-## Response Format
-
-All responses follow this envelope:
-
-```json
-{
-  "success": true,
-  "data": { ... },
-  "error": null
-}
-```
-
-On error:
-
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "ERROR_CODE",
-    "message": "Human-readable message",
-    "details": { ... }
-  }
-}
-```
-
----
-
-## API Reference
-
----
-
-### Recipes
-
-> **Note:** GET endpoints for recipes are public to allow browsing without a header.
-> User endpoints always require a role header.
-
----
-
-#### GET /api/recipes — Get all recipes
-
-No authentication required.
-
-**Query parameters (all optional):**
-
-| Parameter    | Type   | Description                          |
-|--------------|--------|--------------------------------------|
-| `search`     | string | Filter by title (partial match)      |
-| `difficulty` | string | Filter by difficulty (`easy`, `medium`, `hard`) |
-| `doughFamily`| string | Filter by dough family               |
-
-**Example request:**
-```
-GET http://localhost:3000/api/recipes?difficulty=easy
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "recipeId": 1,
-      "title": "Classic Pizza Dough",
-      "doughFamily": "yeast-based",
-      "hydration": 65,
-      "difficulty": "easy",
-      "totalTimeMinutes": 120,
-      "ingredients": [
-        { "name": "flour", "amount": 500, "unit": "g" },
-        { "name": "water", "amount": 325, "unit": "ml" }
-      ],
-      "steps": ["Mix flour and salt", "Add water and yeast", "Knead 10 min"],
-      "createDate": "2026-03-01T10:00:00Z",
-      "updateDate": "2026-03-01T10:00:00Z"
-    }
-  ],
-  "error": null
-}
-```
-
----
-
-#### GET /api/recipes/:id — Get recipe by ID
-
-No authentication required.
-
-**Example request:**
-```
-GET http://localhost:3000/api/recipes/1
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": {
-    "recipeId": 1,
-    "title": "Classic Pizza Dough",
-    "doughFamily": "yeast-based",
-    "hydration": 65,
-    "difficulty": "easy",
-    "totalTimeMinutes": 120,
-    "ingredients": [
-      { "name": "flour", "amount": 500, "unit": "g" }
-    ],
-    "steps": ["Mix flour and salt", "Knead 10 min"],
-    "createDate": "2026-03-01T10:00:00Z",
-    "updateDate": "2026-03-01T10:00:00Z"
-  },
-  "error": null
-}
-```
-
-**Example error response (404):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "NOT_FOUND",
-    "message": "No recipe found with ID 999",
-    "details": { "field": "id" }
-  }
-}
-```
-
----
-
-#### POST /api/recipes — Create a new recipe
-
-**Required header:** `x-user-role: admin` or `x-user-role: manager`
-
-**Request body (all fields required):**
-```json
-{
-  "title": "New Bread",
-  "doughFamily": "sourdough",
-  "hydration": 70,
-  "difficulty": "medium",
-  "totalTimeMinutes": 200,
-  "ingredients": [
-    { "name": "flour", "amount": 500, "unit": "g" },
-    { "name": "water", "amount": 350, "unit": "ml" }
-  ],
-  "steps": ["Mix", "Ferment", "Bake"]
-}
-```
-
-**Example success response (201):**
-```json
-{
-  "success": true,
-  "data": { "recipeId": 7 },
-  "error": null
-}
-```
-
-**Example error response — missing field (400):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Missing required field: title",
-    "details": { "field": "title" }
-  }
-}
-```
-
-**Example error response — forbidden (403):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "FORBIDDEN",
-    "message": "You do not have permission to perform this action.",
-    "details": { "yourRole": "user", "allowedRoles": ["admin", "manager"] }
-  }
-}
-```
-
----
-
-#### PUT /api/recipes/:id — Update a recipe (partial)
-
-**Required header:** `x-user-role: admin` or `x-user-role: manager`
-
-Only the fields you include will be updated. All fields are optional but at least one must be provided.
-
-**Request body (example — partial update):**
-```json
-{
-  "difficulty": "hard",
-  "totalTimeMinutes": 300
-}
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": { "recipeId": 1 },
-  "error": null
-}
-```
-
-**Example error response — not found (404):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "NOT_FOUND",
-    "message": "No recipe found with ID 999",
-    "details": { "field": "id" }
-  }
-}
-```
-
----
-
-#### DELETE /api/recipes/:id — Delete a recipe
-
-**Required header:** `x-user-role: admin`
-
-**Example request:**
-```
-DELETE http://localhost:3000/api/recipes/1
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": { "recipeId": 1 },
-  "error": null
-}
-```
-
-**Example error response — forbidden (403):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "FORBIDDEN",
-    "message": "You do not have permission to perform this action.",
-    "details": { "yourRole": "manager", "allowedRoles": ["admin"] }
-  }
-}
-```
-
----
-
-### Users
-
----
-
-#### GET /api/users — Get all users
-
-**Required header:** `x-user-role: admin`, `manager`, or `user`
-
-**Example request:**
-```
-GET http://localhost:3000/api/users
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": [
-    {
-      "userId": 1,
-      "firstName": "Hadar",
-      "lastName": "Ofer",
-      "userRole": "admin",
-      "createDate": "2026-03-01T10:00:00Z",
-      "updateDate": "2026-03-01T10:00:00Z"
-    }
-  ],
-  "error": null
-}
-```
-
-**Example error response — missing header (401):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "UNAUTHORIZED",
-    "message": "Missing x-user-role header. Please provide your role.",
-    "details": {}
-  }
-}
-```
-
----
-
-#### GET /api/users/:id — Get user by ID
-
-**Required header:** `x-user-role: admin`, `manager`, or `user`
-
-**Example request:**
-```
-GET http://localhost:3000/api/users/1
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": 1,
-    "firstName": "Hadar",
-    "lastName": "Ofer",
-    "userRole": "admin",
-    "createDate": "2026-03-01T10:00:00Z",
-    "updateDate": "2026-03-01T10:00:00Z"
-  },
-  "error": null
-}
-```
-
-**Example error response (404):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "NOT_FOUND",
-    "message": "User with id 999 was not found",
-    "details": { "id": 999 }
-  }
-}
-```
-
----
-
-#### POST /api/users — Create a new user
-
-**Required header:** `x-user-role: admin`
-
-**Request body (all fields required):**
-```json
-{
-  "firstName": "Dana",
-  "lastName": "Cohen",
-  "userRole": "user"
-}
-```
-
-`userRole` must be one of: `admin`, `manager`, `user`
-
-**Example success response (201):**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": 6,
-    "user": {
-      "userId": 6,
-      "firstName": "Dana",
-      "lastName": "Cohen",
-      "userRole": "user",
-      "createDate": "2026-06-01T10:00:00Z",
-      "updateDate": "2026-06-01T10:00:00Z"
-    }
-  },
-  "error": null
-}
-```
-
-**Example error response — missing fields (400):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "VALIDATION_ERROR",
-    "message": "Missing required fields: lastName, userRole",
-    "details": { "missing": ["lastName", "userRole"] }
-  }
-}
-```
-
----
-
-#### PUT /api/users/:id — Update a user
-
-**Required header:** `x-user-role: admin` or `x-user-role: manager`
-A regular `user` may also update **their own** record by sending `x-user-role: user` **and** `x-user-id: <their id>` (must match `:id`). Otherwise they receive `403`.
-
-**Request body (all fields required):**
-```json
-{
-  "firstName": "Dana",
-  "lastName": "Levi",
-  "userRole": "manager"
-}
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": 6,
-    "user": {
-      "userId": 6,
-      "firstName": "Dana",
-      "lastName": "Levi",
-      "userRole": "manager",
-      "createDate": "2026-06-01T10:00:00Z",
-      "updateDate": "2026-06-01T11:00:00Z"
-    }
-  },
-  "error": null
-}
-```
-
-**Example error response (404):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "NOT_FOUND",
-    "message": "User with id 999 was not found",
-    "details": { "id": 999 }
-  }
-}
-```
-
----
-
-#### DELETE /api/users/:id — Delete a user
-
-**Required header:** `x-user-role: admin`
-
-**Example request:**
-```
-DELETE http://localhost:3000/api/users/4
-```
-
-**Example success response (200):**
-```json
-{
-  "success": true,
-  "data": {
-    "userId": 4,
-    "message": "User deleted"
-  },
-  "error": null
-}
-```
-
-**Example error response — forbidden (403):**
-```json
-{
-  "success": false,
-  "data": null,
-  "error": {
-    "code": "FORBIDDEN",
-    "message": "You do not have permission to perform this action.",
-    "details": { "yourRole": "manager", "allowedRoles": ["admin"] }
-  }
-}
-```
-
----
-
-## Project Structure
+## Project structure
 
 ```
 DoughE/
-├── server.js                  # Entry point, middleware setup, route registration
-├── middleware/
-│   ├── auth.js                # requireRole() — role-based access control
-│   ├── logger.js              # Logs every incoming request
-│   └── errorHandler.js        # Global error handler (catches unhandled errors)
-├── routes/
-│   ├── recipes.js             # Recipe route definitions
-│   └── users.js               # User route definitions
-├── controllers/
-│   ├── recipesController.js   # Recipe business logic
-│   └── usersController.js     # User business logic
-├── models/
-│   ├── recipesData.js         # In-memory recipes data + CRUD functions
-│   └── usersData.js           # In-memory users data + CRUD functions
-├── utils/
-│   └── response.js            # success() and error() response helpers
-└── docs/
-    ├── Dough-E API.postman_collection.json
-    └── screenshots/
+├── backend/
+│   ├── .env.example              # environment template (copy to .env)
+│   ├── package.json              # backend deps + scripts (start / dev / seed)
+│   ├── migrations/
+│   │   └── schema.sql            # MySQL schema (all tables + relationships)
+│   ├── models/                   # Sequelize models + associations
+│   │   ├── index.js              # connection + ALL relationships
+│   │   ├── user.js  admin.js  recipe.js
+│   │   ├── ingredient.js  recipeIngredient.js   # ingredients junction (M:N)
+│   │   ├── recipeLike.js                        # likes junction (M:N)
+│   │   └── comment.js
+│   └── src/
+│       ├── server.js             # Express + Sequelize + Socket.IO + AI entry point
+│       ├── middleware/           # auth (role check), logger, errorHandler
+│       ├── utils/response.js     # success() / error() envelope helpers
+│       ├── routes/               # users, recipes, auth, settings, likes, ai
+│       ├── controllers/          # users, recipes, comments, likes, ai
+│       ├── socket/index.js       # Socket.IO events (live comments + presence)
+│       └── seed/seed.js          # sample data loader
+└── client/                       # React frontend
+    └── src/
+        ├── pages/                # Login, Dashboard, Profile, Settings
+        ├── components/           # RecipeCard, RecipeComments, ChatWidget, ...
+        └── services/             # api, auth, recipes, likes, settings, socket, ai
 ```
 
 ---
 
-## Testing
+## Installation
 
-Import `docs/Dough-E API.postman_collection.json` into Postman to get all endpoints pre-configured with example requests and saved responses.
+### Prerequisites
+- Node.js 18+ (needed for the backend's built-in `fetch`)
+- MySQL 8+ (with MySQL Workbench recommended)
 
-Screenshots of representative success and error responses are in `docs/screenshots/`.
+### 1. Database setup
+Create the database and tables by running the schema in MySQL Workbench
+(**File → Open SQL Script →** `backend/migrations/schema.sql` **→ Execute**), or from a shell:
+
+```bash
+mysql -u root -p < backend/migrations/schema.sql
+```
+
+This creates the `doughe` database with all six tables.
+
+### 2. Environment variables
+```bash
+cd backend
+cp .env.example .env
+```
+Then edit `backend/.env` (see the table below) — set `DB_PASSWORD` and `GROQ_API_KEY`.
+
+### 3. Backend
+```bash
+cd backend
+npm install
+npm run seed      # builds tables from the models + inserts sample data
+npm start         # http://localhost:3000
+```
+On success the console prints `MySQL connection OK.` and
+`Dough-E API + Socket.IO running on http://localhost:3000`.
+
+### 4. Frontend
+```bash
+cd client
+npm install
+npm start         # choose "Y" to run on port 3001 when prompted
+```
+Open **http://localhost:3001** and log in (e.g. `hadar@dough.com` / `123456`).
+
+---
+
+## Environment variables (`backend/.env`)
+
+| Variable | Description | Example |
+|----------|-------------|---------|
+| `PORT` | Backend port | `3000` |
+| `CLIENT_ORIGIN` | Frontend origin (CORS) | `http://localhost:3001` |
+| `DB_HOST` | MySQL host | `localhost` |
+| `DB_PORT` | MySQL port | `3306` |
+| `DB_NAME` | Database name | `doughe` |
+| `DB_USER` | MySQL user | `root` |
+| `DB_PASSWORD` | MySQL password | *(your password)* |
+| `GROQ_API_KEY` | AI provider key (backend only) | `gsk_...` |
+
+`.env` is git-ignored; only `.env.example` (no secrets) is committed.
+
+---
+
+## ORM setup (Sequelize)
+
+Models live in `backend/models/`. `models/index.js` creates the connection from `.env`
+and defines every relationship. On startup the server calls `sequelize.sync()` (no `force`),
+so tables are created if missing and existing data is preserved across restarts.
+
+**Models:** `User`, `Admin`, `Recipe`, `Ingredient`, `RecipeIngredient` (junction),
+`RecipeLike` (junction), `Comment`.
+
+**Relationships:**
+- **One-to-one:** `User` ↔ `Admin`
+- **One-to-many:** `User` → `Recipe` (author); `Recipe` → `Comment`; `User` → `Comment`
+- **Many-to-many:** `Recipe` ↔ `Ingredient` (through `recipe_ingredients`);
+  `User` ↔ `Recipe` likes (through `recipe_likes`)
+- **JOIN example:** `GET /api/recipes/:id` returns a recipe with its author and all
+  ingredients (Sequelize `include`).
+
+To reset the schema and sample data at any time: `npm run seed` (drops and recreates all
+tables — dev only).
+
+---
+
+## API endpoints
+
+Base URL: `http://localhost:3000`. All responses use the standard envelope (below).
+Role is simulated via an `x-user-role` header; the current user via `x-user-id`.
+
+### Auth
+| Method | Path | Body / Headers |
+|--------|------|----------------|
+| POST | `/api/auth/login` | `{ email, password }` |
+| POST | `/api/auth/logout` | — |
+| GET | `/api/auth/me` | header `x-user-id` |
+
+### Users
+| Method | Path | Auth | Body |
+|--------|------|------|------|
+| GET | `/api/users` | admin/manager/user | — |
+| GET | `/api/users/:id` | admin/manager/user | — |
+| POST | `/api/users` | admin | `{ firstName, lastName, userRole, email, password }` |
+| PUT | `/api/users/:id` | admin/manager, or the user themselves (`x-user-id`) | `{ firstName, lastName, userRole }` |
+| DELETE | `/api/users/:id` | admin | — |
+
+### Recipes
+| Method | Path | Auth | Notes |
+|--------|------|------|-------|
+| GET | `/api/recipes` | public | filters: `?difficulty=`, `?doughFamily=` |
+| GET | `/api/recipes/:id` | public | JOIN: author + ingredients |
+| POST | `/api/recipes` | admin/manager | `{ title, doughFamily, hydration, difficulty, totalTimeMinutes, steps, ingredients:[{name,amount,unit}] }` |
+| PUT | `/api/recipes/:id` | admin/manager | partial fields |
+| DELETE | `/api/recipes/:id` | admin | — |
+
+### Comments (real-time; REST read)
+| Method | Path | Notes |
+|--------|------|-------|
+| GET | `/api/recipes/:id/comments` | list saved comments (with ratings) |
+
+### Likes
+| Method | Path | Headers |
+|--------|------|---------|
+| POST | `/api/recipes/:id/like` | `x-user-id` |
+| DELETE | `/api/recipes/:id/like` | `x-user-id` |
+| GET | `/api/likes` | `x-user-id` → the user's liked recipes |
+
+### Settings
+| Method | Path | Headers / Body |
+|--------|------|----------------|
+| GET | `/api/settings` | header `x-user-id` |
+| PUT | `/api/settings` | header `x-user-id`, body `{ userName, email, theme }` |
+
+### AI
+| Method | Path | Body |
+|--------|------|------|
+| POST | `/api/ai/assistant` | `{ prompt, context? }` |
+
+### Response format
+```json
+// success
+{ "success": true, "data": { }, "error": null }
+
+// error
+{ "success": false, "data": null, "error": { "code": "SOME_CODE", "message": "…", "details": {} } }
+```
+
+---
+
+## WebSocket feature (Socket.IO)
+
+**Live recipe comments + presence.** When a user opens a recipe, the client joins that
+recipe's room; comments posted by anyone in the room appear instantly for everyone, and are
+**saved to MySQL** so they persist. A live "online" counter shows connected clients.
+
+Custom events (beyond `connect` / `disconnect`), in `backend/src/socket/index.js`:
+
+| Event | Direction | Purpose |
+|-------|-----------|---------|
+| `recipe:join` | client → server | join a recipe's room |
+| `comment:new` | client → server | post a comment (with optional star rating) |
+| `comment:added` | server → clients | broadcast the saved comment to the room |
+| `presence:update` | server → clients | number of connected clients |
+
+**To demo:** open the same recipe in two browser tabs and post a comment in one — it appears
+in both instantly. Reload afterward: the comments are still there (loaded from the database).
+
+The frontend UI is `client/src/components/RecipeComments.jsx`, shown inside each recipe pop-up,
+including a star-rating picker and an average rating.
+
+---
+
+## AI feature
+
+**"Ask the Chef"** — a floating chat assistant (bottom-right) powered by Groq. It answers
+baking questions and, when a recipe is open, tailors its answer to that recipe (the current
+recipe's details are sent as context).
+
+- Endpoint: `POST /api/ai/assistant` (`backend/src/controllers/aiController.js`).
+- The frontend calls **our backend**, never the AI provider directly
+  (`client/src/services/aiService.js` → `client/src/components/ChatWidget.jsx`).
+- The provider key lives only in `backend/.env` (`GROQ_API_KEY`) and is never exposed to the
+  frontend, the bundle, or network traffic.
+
+To switch providers (e.g. back to Google Gemini), change the request in `aiController.js` and
+the key in `.env` — the frontend needs no changes.
+
+---
+
+## Known limitations
+
+- **Auth is simulated.** There is no real login/JWT; role and identity are passed via the
+  `x-user-role` / `x-user-id` headers, and passwords are stored in plain text (assignment scope).
+- **Guest mode** cannot like recipes or be attributed as a comment author (no real user id).
+- **`npm run seed`** uses `sync({ force: true })`, which drops and recreates all tables — it is
+  for development/first-run only; do not run it if you want to keep existing data.
+- **Presence count** is in-memory (not persisted) and counts all connected clients app-wide,
+  not per-recipe viewers.
+- The frontend has no admin UI for creating/editing recipes; those operations are done through
+  the API (see the Postman collection in `docs/`).

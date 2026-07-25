@@ -1,1013 +1,40 @@
 {
   "info": {
-    "_postman_id": "c1c8084d-b413-4ab0-83e6-782153333bd3",
-    "name": "Dough-E API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "_exporter_id": "55192832",
-    "_collection_link": "https://go.postman.co/collection/55192832-c1c8084d-b413-4ab0-83e6-782153333bd3?source=collection_link"
+    "name": "Dough-E API (Assignment 4)",
+    "description": "Full-stack Dough-E API: MySQL + Sequelize, Socket.IO, and AI. Base URL variable: baseUrl (default http://localhost:3000). Role is simulated with the x-user-role header; current user with x-user-id.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:3000" }
+  ],
   "item": [
     {
-      "name": "Recipes",
+      "name": "Auth",
       "item": [
         {
-          "name": "Get All Recipes",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "user",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/recipes",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Filter By Dough Family",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "user",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/recipes?doughFamily=yeast-based",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes"
-              ],
-              "query": [
-                {
-                  "key": "doughFamily",
-                  "value": "yeast-based"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Filter By Difficulty",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "user",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/recipes?difficulty=easy",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes"
-              ],
-              "query": [
-                {
-                  "key": "difficulty",
-                  "value": "easy",
-                  "type": "text"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Search By Title",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "user",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/recipes?search=pizza",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes"
-              ],
-              "query": [
-                {
-                  "key": "search",
-                  "value": "pizza",
-                  "type": "text"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Filter By Family And Difficulty",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "user",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/recipes?doughFamily=sourdough&difficulty=hard",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes"
-              ],
-              "query": [
-                {
-                  "key": "doughFamily",
-                  "value": "sourdough",
-                  "type": "text"
-                },
-                {
-                  "key": "difficulty",
-                  "value": "hard",
-                  "type": "text"
-                }
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "Get Recipe By ID",
-          "request": {
-            "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "user",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/recipes/999",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes",
-                "999"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Success - 200",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "user",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/recipes/4",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes",
-                    "4"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "515"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"203-nwr/cN3MSItmSoD6fw2kMUiaQQM\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:10:03 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"recipeId\": 4,\n        \"title\": \"Croissant Dough\",\n        \"doughFamily\": \"laminated\",\n        \"hydration\": 50,\n        \"difficulty\": \"hard\",\n        \"totalTimeMinutes\": 720,\n        \"ingredients\": [\n            {\n                \"name\": \"flour\",\n                \"amount\": 500,\n                \"unit\": \"g\"\n            },\n            {\n                \"name\": \"butter\",\n                \"amount\": 250,\n                \"unit\": \"g\"\n            },\n            {\n                \"name\": \"milk\",\n                \"amount\": 250,\n                \"unit\": \"ml\"\n            },\n            {\n                \"name\": \"yeast\",\n                \"amount\": 10,\n                \"unit\": \"g\"\n            }\n        ],\n        \"steps\": [\n            \"Make detrempe\",\n            \"Chill\",\n            \"Laminate 3 turns\",\n            \"Shape and proof\",\n            \"Bake for 15-20 min at 200°C\"\n        ],\n        \"createDate\": \"2026-03-06T15:00:00Z\",\n        \"updateDate\": \"2026-03-06T15:00:00Z\"\n    },\n    \"error\": null\n}"
-            },
-            {
-              "name": "Not Found - 404",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "user",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/recipes/999",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes",
-                    "999"
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "123"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"7b-gHQNqdNbHhM2ga5+wC2vqY9McqU\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:10:56 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": false,\n    \"data\": null,\n    \"error\": {\n        \"code\": \"NOT_FOUND\",\n        \"message\": \"No recipe found with ID 999\",\n        \"details\": {\n            \"field\": \"id\"\n        }\n    }\n}"
-            }
-          ]
-        },
-        {
-          "name": "Create Recipe",
+          "name": "Login",
           "request": {
             "method": "POST",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "admin",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"title\": \"test\"\n  } ",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/recipes",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Success - 201",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"title\": \"Focaccia\",\n    \"doughFamily\": \"yeast-based\",\n    \"hydration\": 80,\n    \"difficulty\": \"medium\",\n    \"totalTimeMinutes\": 240,\n    \"ingredients\": [{\"name\": \"flour\", \"grams\": 500}],\n    \"steps\": [\"Mix all\", \"Bake 25min\"]\n  } ",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:3000/recipes",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes"
-                  ]
-                }
-              },
-              "status": "Created",
-              "code": 201,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "51"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"33-dMMJ24BrPt+h9emxo31CZirZ36Q\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:18:39 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"recipeId\": 7\n    },\n    \"error\": null\n}"
-            },
-            {
-              "name": "Validation Error - 400",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"title\": \"test\"\n  } ",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:3000/recipes",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes"
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "147"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"93-/qtSKX/pq1ToolwnW7vtSgJL5rI\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:20:31 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": false,\n    \"data\": null,\n    \"error\": {\n        \"code\": \"VALIDATION_ERROR\",\n        \"message\": \"Missing required field: doughFamily\",\n        \"details\": {\n            \"field\": \"doughFamily\"\n        }\n    }\n}"
-            },
-            {
-              "name": "example 403",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "user",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"title\": \"test\"\n  } ",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:3000/recipes",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes"
-                  ]
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "186"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"ba-vQw55Wwkf0IEdCuZ7zd3syQ1+8c\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:22:37 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": false,\n    \"data\": null,\n    \"error\": {\n        \"code\": \"FORBIDDEN\",\n        \"message\": \"You do not have permission to perform this action.\",\n        \"details\": {\n            \"yourRole\": \"user\",\n            \"allowedRoles\": [\n                \"admin\",\n                \"manager\"\n            ]\n        }\n    }\n}"
-            }
-          ]
+            "header": [ { "key": "Content-Type", "value": "application/json", "type": "text" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"email\": \"hadar@dough.com\",\n  \"password\": \"123456\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api", "auth", "login"] }
+          }
         },
         {
-          "name": "Update Recipe",
+          "name": "Logout",
           "request": {
-            "method": "PUT",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "manager",
-                "type": "text"
-              },
-              {
-                "key": "Content-Type",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"hydration\": 68\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/recipes/3",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes",
-                "3"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Success - 200",
-              "originalRequest": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "manager",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"hydration\": 68\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:3000/recipes/3",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes",
-                    "3"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "51"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"33-YGTJvi2CD/W0U0w21XJrO+1bHjI\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:39:55 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"recipeId\": 3\n    },\n    \"error\": null\n}"
-            },
-            {
-              "name": "Not Found - 404",
-              "originalRequest": {
-                "method": "PUT",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "manager",
-                    "type": "text"
-                  },
-                  {
-                    "key": "Content-Type",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\n    \"hydration\": 68\n}",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:3000/recipes/999",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes",
-                    "999"
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "123"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"7b-gHQNqdNbHhM2ga5+wC2vqY9McqU\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:42:49 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": false,\n    \"data\": null,\n    \"error\": {\n        \"code\": \"NOT_FOUND\",\n        \"message\": \"No recipe found with ID 999\",\n        \"details\": {\n            \"field\": \"id\"\n        }\n    }\n}"
-            }
-          ]
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/auth/logout", "host": ["{{baseUrl}}"], "path": ["api", "auth", "logout"] }
+          }
         },
         {
-          "name": "Delete Recipe",
+          "name": "Me",
           "request": {
-            "method": "DELETE",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "admin",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/recipes/5",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "recipes",
-                "5"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Success - 200",
-              "originalRequest": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/recipes/5",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes",
-                    "5"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "51"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"33-vaV2xL8uSBO9oYnNj2pG7ztd+6o\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:44:00 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": true,\n    \"data\": {\n        \"recipeId\": 5\n    },\n    \"error\": null\n}"
-            },
-            {
-              "name": "Not Found - 404",
-              "originalRequest": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/recipes/999",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes",
-                    "999"
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "123"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"7b-gHQNqdNbHhM2ga5+wC2vqY9McqU\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:44:35 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": false,\n    \"data\": null,\n    \"error\": {\n        \"code\": \"NOT_FOUND\",\n        \"message\": \"No recipe found with ID 999\",\n        \"details\": {\n            \"field\": \"id\"\n        }\n    }\n}"
-            },
-            {
-              "name": "Forbidden - 403",
-              "originalRequest": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "user",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/recipes/1",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "recipes",
-                    "1"
-                  ]
-                }
-              },
-              "status": "Forbidden",
-              "code": 403,
-              "_postman_previewlanguage": "Text",
-              "header": [
-                {
-                  "key": "X-Powered-By",
-                  "value": "Express"
-                },
-                {
-                  "key": "Access-Control-Allow-Origin",
-                  "value": "*"
-                },
-                {
-                  "key": "Content-Type",
-                  "value": "application/json; charset=utf-8"
-                },
-                {
-                  "key": "Content-Length",
-                  "value": "176"
-                },
-                {
-                  "key": "ETag",
-                  "value": "W/\"b0-5r8dCtd3tDkqqvLOOSEv5UYJWAE\""
-                },
-                {
-                  "key": "Date",
-                  "value": "Mon, 18 May 2026 15:45:05 GMT"
-                },
-                {
-                  "key": "Connection",
-                  "value": "keep-alive"
-                },
-                {
-                  "key": "Keep-Alive",
-                  "value": "timeout=5"
-                }
-              ],
-              "cookie": [],
-              "body": "{\n    \"success\": false,\n    \"data\": null,\n    \"error\": {\n        \"code\": \"FORBIDDEN\",\n        \"message\": \"You do not have permission to perform this action.\",\n        \"details\": {\n            \"yourRole\": \"user\",\n            \"allowedRoles\": [\n                \"admin\"\n            ]\n        }\n    }\n}"
-            }
-          ]
+            "method": "GET",
+            "header": [ { "key": "x-user-id", "value": "1", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/auth/me", "host": ["{{baseUrl}}"], "path": ["api", "auth", "me"] }
+          }
         }
       ]
     },
@@ -1015,435 +42,266 @@
       "name": "Users",
       "item": [
         {
-          "name": "List all users",
+          "name": "Get all users",
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "admin",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/users",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "users"
-              ]
-            }
-          },
-          "response": []
+            "header": [ { "key": "x-user-role", "value": "admin", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/users", "host": ["{{baseUrl}}"], "path": ["api", "users"] }
+          }
         },
         {
           "name": "Get user by id",
           "request": {
             "method": "GET",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "admin",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/users/1",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "users",
-                "1"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Get user by id -  success",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/users/1",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "users",
-                    "1"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": "{\r\n    \"success\": true,\r\n    \"data\": {\r\n        \"userId\": 1,\r\n        \"firstName\": \"Hadar\",\r\n        \"lastName\": \"Ofer\",\r\n        \"createDate\": \"2026-03-01T10:00:00Z\",\r\n        \"updateDate\": \"2026-03-01T10:00:00Z\",\r\n        \"userRole\": \"admin\"\r\n    },\r\n    \"error\": null\r\n}"
-            },
-            {
-              "name": "Get user by id - 404",
-              "originalRequest": {
-                "method": "GET",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/users/999",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "users",
-                    "999"
-                  ]
-                }
-              },
-              "status": "Not Found",
-              "code": 404,
-              "_postman_previewlanguage": "",
-              "header": [],
-              "cookie": [
-                {
-                  "expires": "Invalid Date",
-                  "domain": "",
-                  "path": ""
-                }
-              ],
-              "body": "{\r\n    \"success\": false,\r\n    \"data\": null,\r\n    \"error\": {\r\n        \"code\": \"NOT_FOUND\",\r\n        \"message\": \"User with id 999 was not found\",\r\n        \"details\": {\r\n            \"id\": 999\r\n        }\r\n    }\r\n}"
-            }
-          ]
+            "header": [ { "key": "x-user-role", "value": "user", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/users/1", "host": ["{{baseUrl}}"], "path": ["api", "users", "1"] }
+          }
         },
         {
-          "name": "Create user",
+          "name": "Get user by id - not found (404)",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "x-user-role", "value": "user", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/users/999", "host": ["{{baseUrl}}"], "path": ["api", "users", "999"] }
+          }
+        },
+        {
+          "name": "Create user (admin)",
           "request": {
             "method": "POST",
             "header": [
-              {
-                "key": "x-user-role",
-                "value": "admin",
-                "type": "text"
-              }
+              { "key": "x-user-role", "value": "admin", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": " {\"firstName\":\"Test\",\"lastName\":\"User\",\"userRole\":\"user\"} ",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/users",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "users"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Create user - success",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": " {\"firstName\":\"Test\",\"lastName\":\"User\",\"userRole\":\"user\"} ",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:3000/users",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "users"
-                  ]
-                }
-              },
-              "status": "OK",
-              "code": 200,
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": "{\r\n    \"success\": true,\r\n    \"data\": [\r\n        {\r\n            \"userId\": 1,\r\n            \"firstName\": \"Hadar\",\r\n            \"lastName\": \"Ofer\",\r\n            \"createDate\": \"2026-03-01T10:00:00Z\",\r\n            \"updateDate\": \"2026-03-01T10:00:00Z\",\r\n            \"userRole\": \"admin\"\r\n        },\r\n        {\r\n            \"userId\": 2,\r\n            \"firstName\": \"Shir\",\r\n            \"lastName\": \"Battat\",\r\n            \"createDate\": \"2026-03-02T11:30:00Z\",\r\n            \"updateDate\": \"2026-03-02T11:30:00Z\",\r\n            \"userRole\": \"admin\"\r\n        },\r\n        {\r\n            \"userId\": 3,\r\n            \"firstName\": \"Noa\",\r\n            \"lastName\": \"Kirel\",\r\n            \"createDate\": \"2026-03-05T09:15:00Z\",\r\n            \"updateDate\": \"2026-03-05T09:15:00Z\",\r\n            \"userRole\": \"manager\"\r\n        },\r\n        {\r\n            \"userId\": 4,\r\n            \"firstName\": \"Matan\",\r\n            \"lastName\": \"Perez\",\r\n            \"createDate\": \"2026-03-08T14:20:00Z\",\r\n            \"updateDate\": \"2026-03-08T14:20:00Z\",\r\n            \"userRole\": \"user\"\r\n        },\r\n        {\r\n            \"userId\": 5,\r\n            \"firstName\": \"Maya\",\r\n            \"lastName\": \"Vertheimer\",\r\n            \"createDate\": \"2026-03-10T08:45:00Z\",\r\n            \"updateDate\": \"2026-03-10T08:45:00Z\",\r\n            \"userRole\": \"user\"\r\n        }\r\n    ],\r\n    \"error\": null\r\n}"
-            },
-            {
-              "name": "Create user - validation error",
-              "originalRequest": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  }
-                ],
-                "body": {
-                  "mode": "raw",
-                  "raw": "{\"firstName\":\"Test\"} ",
-                  "options": {
-                    "raw": {
-                      "language": "json"
-                    }
-                  }
-                },
-                "url": {
-                  "raw": "http://localhost:3000/users",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "users"
-                  ]
-                }
-              },
-              "status": "Bad Request",
-              "code": 400,
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": "{\r\n    \"success\": false,\r\n    \"data\": null,\r\n    \"error\": {\r\n        \"code\": \"VALIDATION_ERROR\",\r\n        \"message\": \"Missing required fields: lastName, userRole\",\r\n        \"details\": {\r\n            \"missing\": [\r\n                \"lastName\",\r\n                \"userRole\"\r\n            ]\r\n        }\r\n    }\r\n}"
-            }
-          ]
+            "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"Dana\",\n  \"lastName\": \"Cohen\",\n  \"userRole\": \"user\",\n  \"email\": \"dana@dough.com\",\n  \"password\": \"123456\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/users", "host": ["{{baseUrl}}"], "path": ["api", "users"] }
+          }
         },
         {
-          "name": "Update user",
+          "name": "Create user - validation error (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "x-user-role", "value": "admin", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"Dana\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/users", "host": ["{{baseUrl}}"], "path": ["api", "users"] }
+          }
+        },
+        {
+          "name": "Update user (manager)",
           "request": {
             "method": "PUT",
             "header": [
-              {
-                "key": "x-user-role",
-                "value": "admin",
-                "type": "text"
-              }
+              { "key": "x-user-role", "value": "manager", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\"firstName\":\"Shir\",\"lastName\":\"Ba\",\"userRole\":\"admin\"}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/users/2",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "users",
-                "2"
-              ]
-            }
-          },
-          "response": []
+            "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"Shir\",\n  \"lastName\": \"Battat\",\n  \"userRole\": \"admin\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/users/2", "host": ["{{baseUrl}}"], "path": ["api", "users", "2"] }
+          }
         },
         {
-          "name": "Update user -- self",
+          "name": "Update user - self (user)",
           "request": {
             "method": "PUT",
             "header": [
-              {
-                "key": "x-user-role",
-                "value": "user",
-                "type": "text"
-              },
-              {
-                "key": "x-user-id",
-                "value": "4",
-                "type": "text"
-              }
+              { "key": "x-user-role", "value": "user", "type": "text" },
+              { "key": "x-user-id", "value": "4", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n  \"firstName\": \"Matan\",\r\n  \"lastName\": \"Perez\",\r\n  \"userRole\": \"user\"\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "http://localhost:3000/users/4",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "users",
-                "4"
-              ]
-            }
-          },
-          "response": []
+            "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"Matan\",\n  \"lastName\": \"Perez\",\n  \"userRole\": \"user\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/users/4", "host": ["{{baseUrl}}"], "path": ["api", "users", "4"] }
+          }
         },
         {
-          "name": "Delete user",
+          "name": "Delete user (admin)",
           "request": {
             "method": "DELETE",
-            "header": [
-              {
-                "key": "x-user-role",
-                "value": "admin",
-                "type": "text"
-              }
-            ],
-            "url": {
-              "raw": "http://localhost:3000/users/5",
-              "protocol": "http",
-              "host": [
-                "localhost"
-              ],
-              "port": "3000",
-              "path": [
-                "users",
-                "5"
-              ]
-            }
-          },
-          "response": [
-            {
-              "name": "Delete user - success",
-              "originalRequest": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "admin",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/users/5",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "users",
-                    "5"
-                  ]
-                }
-              },
-              "_postman_previewlanguage": null,
-              "header": null,
-              "cookie": [],
-              "body": null
-            },
-            {
-              "name": "Delete user - 403",
-              "originalRequest": {
-                "method": "DELETE",
-                "header": [
-                  {
-                    "key": "x-user-role",
-                    "value": "user",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "http://localhost:3000/users/4",
-                  "protocol": "http",
-                  "host": [
-                    "localhost"
-                  ],
-                  "port": "3000",
-                  "path": [
-                    "users",
-                    "4"
-                  ]
-                }
-              },
-              "_postman_previewlanguage": "",
-              "header": [],
-              "cookie": [
-                {
-                  "expires": "Invalid Date",
-                  "domain": "",
-                  "path": ""
-                }
-              ],
-              "body": ""
-            }
-          ]
+            "header": [ { "key": "x-user-role", "value": "admin", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/users/5", "host": ["{{baseUrl}}"], "path": ["api", "users", "5"] }
+          }
         }
       ]
-    }
-  ],
-  "event": [
-    {
-      "listen": "prerequest",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [
-          ""
-        ]
-      }
     },
     {
-      "listen": "test",
-      "script": {
-        "type": "text/javascript",
-        "packages": {},
-        "requests": {},
-        "exec": [
-          ""
-        ]
-      }
-    }
-  ],
-  "variable": [
+      "name": "Recipes",
+      "item": [
+        {
+          "name": "Get all recipes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/recipes", "host": ["{{baseUrl}}"], "path": ["api", "recipes"] }
+          }
+        },
+        {
+          "name": "Filter by difficulty",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/recipes?difficulty=easy", "host": ["{{baseUrl}}"], "path": ["api", "recipes"], "query": [ { "key": "difficulty", "value": "easy" } ] }
+          }
+        },
+        {
+          "name": "Filter by dough family",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/recipes?doughFamily=sourdough", "host": ["{{baseUrl}}"], "path": ["api", "recipes"], "query": [ { "key": "doughFamily", "value": "sourdough" } ] }
+          }
+        },
+        {
+          "name": "Get recipe by id (JOIN: author + ingredients)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/recipes/1", "host": ["{{baseUrl}}"], "path": ["api", "recipes", "1"] }
+          }
+        },
+        {
+          "name": "Get recipe - not found (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/recipes/999", "host": ["{{baseUrl}}"], "path": ["api", "recipes", "999"] }
+          }
+        },
+        {
+          "name": "Create recipe (manager)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "x-user-role", "value": "manager", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Focaccia\",\n  \"doughFamily\": \"yeast-based\",\n  \"hydration\": 80,\n  \"difficulty\": \"medium\",\n  \"totalTimeMinutes\": 180,\n  \"steps\": [\"Mix\", \"Rest\", \"Dimple and bake\"],\n  \"ingredients\": [\n    { \"name\": \"flour\", \"amount\": 500, \"unit\": \"g\" },\n    { \"name\": \"water\", \"amount\": 400, \"unit\": \"ml\" },\n    { \"name\": \"olive oil\", \"amount\": 30, \"unit\": \"ml\" },\n    { \"name\": \"salt\", \"amount\": 10, \"unit\": \"g\" }\n  ]\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/recipes", "host": ["{{baseUrl}}"], "path": ["api", "recipes"] }
+          }
+        },
+        {
+          "name": "Create recipe - forbidden (403, as user)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "x-user-role", "value": "user", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"title\": \"Nope\",\n  \"doughFamily\": \"batter\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/recipes", "host": ["{{baseUrl}}"], "path": ["api", "recipes"] }
+          }
+        },
+        {
+          "name": "Update recipe (manager)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "x-user-role", "value": "manager", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"difficulty\": \"hard\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/recipes/1", "host": ["{{baseUrl}}"], "path": ["api", "recipes", "1"] }
+          }
+        },
+        {
+          "name": "Delete recipe (admin)",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "x-user-role", "value": "admin", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/recipes/6", "host": ["{{baseUrl}}"], "path": ["api", "recipes", "6"] }
+          }
+        }
+      ]
+    },
     {
-      "key": "x-user-role",
-      "value": ""
+      "name": "Comments",
+      "item": [
+        {
+          "name": "Get recipe comments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/api/recipes/1/comments", "host": ["{{baseUrl}}"], "path": ["api", "recipes", "1", "comments"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Likes",
+      "item": [
+        {
+          "name": "Like a recipe",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "x-user-id", "value": "1", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/recipes/2/like", "host": ["{{baseUrl}}"], "path": ["api", "recipes", "2", "like"] }
+          }
+        },
+        {
+          "name": "Unlike a recipe",
+          "request": {
+            "method": "DELETE",
+            "header": [ { "key": "x-user-id", "value": "1", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/recipes/2/like", "host": ["{{baseUrl}}"], "path": ["api", "recipes", "2", "like"] }
+          }
+        },
+        {
+          "name": "My liked recipes",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "x-user-id", "value": "1", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/likes", "host": ["{{baseUrl}}"], "path": ["api", "likes"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Settings",
+      "item": [
+        {
+          "name": "Get settings",
+          "request": {
+            "method": "GET",
+            "header": [ { "key": "x-user-id", "value": "1", "type": "text" } ],
+            "url": { "raw": "{{baseUrl}}/api/settings", "host": ["{{baseUrl}}"], "path": ["api", "settings"] }
+          }
+        },
+        {
+          "name": "Update settings",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "x-user-id", "value": "1", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": { "mode": "raw", "raw": "{\n  \"userName\": \"Hadar\",\n  \"email\": \"hadar@dough.com\",\n  \"theme\": \"pink\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/settings", "host": ["{{baseUrl}}"], "path": ["api", "settings"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "AI",
+      "item": [
+        {
+          "name": "Ask the Chef (general)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json", "type": "text" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"prompt\": \"Why is my dough too sticky?\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/ai/assistant", "host": ["{{baseUrl}}"], "path": ["api", "ai", "assistant"] }
+          }
+        },
+        {
+          "name": "Ask the Chef (with recipe context)",
+          "request": {
+            "method": "POST",
+            "header": [ { "key": "Content-Type", "value": "application/json", "type": "text" } ],
+            "body": { "mode": "raw", "raw": "{\n  \"prompt\": \"How do I make this less dense?\",\n  \"context\": \"The user is viewing the recipe Classic Pizza Dough (yeast-based, 65% hydration).\"\n}", "options": { "raw": { "language": "json" } } },
+            "url": { "raw": "{{baseUrl}}/api/ai/assistant", "host": ["{{baseUrl}}"], "path": ["api", "ai", "assistant"] }
+          }
+        }
+      ]
     }
   ]
 }
