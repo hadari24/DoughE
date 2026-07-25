@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getMyLikes } from '../services/likesService';
+import { getMyLikes, updateNote } from '../services/likesService';
 import RecipeCard from '../components/RecipeCard';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
@@ -21,6 +21,11 @@ function ProfilePage() {
       .catch(() => setError('Failed to load your liked recipes'))
       .finally(() => setLoading(false));
   }, [isGuest]);
+
+  const handleSaveNote = async (recipeId, note) => {
+    await updateNote(recipeId, note);
+    setLiked(list => list.map(r => (r.recipeId === recipeId ? { ...r, note } : r)));
+  };
 
   return (
     <div className="page">
@@ -50,6 +55,9 @@ function ProfilePage() {
               ingredients={recipe.ingredients}
               steps={recipe.steps}
               initialLiked={true}
+              author={recipe.author}
+              note={recipe.note}
+              onSaveNote={handleSaveNote}
             />
           ))}
         </div>

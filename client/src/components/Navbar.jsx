@@ -33,6 +33,9 @@ function Navbar() {
         </Link>
         <Link to="/dashboard">Home</Link>
         <Link to="/profile">Profile</Link>
+        {localStorage.getItem('userRole') === 'admin' && (
+          <Link to="/admin/users">Manage Users</Link>
+        )}
         <Link to="/settings">Settings</Link>
       </div>
       <div className="navbar-user">

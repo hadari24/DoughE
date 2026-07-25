@@ -77,7 +77,7 @@ function ChatWidget() {
 
 const styles = {
   wrap: { position: 'fixed', right: 20, bottom: 20, zIndex: 1000, fontFamily: 'inherit' },
-  logoImg: { width: 24, height: 24, borderRadius: '50%', objectFit: 'cover', background: 'white' },
+  logoImg: { width: 28, height: 28, objectFit: 'contain' },
   fab: {
     display: 'flex', alignItems: 'center', gap: 8, background: 'var(--accent)', color: 'var(--accent-contrast)',
     border: 'none', borderRadius: 30, padding: '12px 18px', fontSize: 15, fontWeight: 600,

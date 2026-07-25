@@ -70,6 +70,7 @@ CREATE TABLE IF NOT EXISTS recipe_likes (
   id        INT AUTO_INCREMENT PRIMARY KEY,
   userId    INT NOT NULL,
   recipeId  INT NOT NULL,
+  note      TEXT,
   createdAt DATETIME DEFAULT CURRENT_TIMESTAMP,
   UNIQUE KEY uniq_user_recipe_like (userId, recipeId),
   CONSTRAINT fk_like_user   FOREIGN KEY (userId)   REFERENCES users(userId)     ON DELETE CASCADE,

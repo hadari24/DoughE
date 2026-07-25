@@ -1,4 +1,5 @@
-// junction table for the user <-> recipe "likes" many-to-many
+// junction table for the user <-> recipe "likes" many-to-many.
+// Also carries the user's personal note for that saved recipe.
 module.exports = (sequelize, DataTypes) => {
   const RecipeLike = sequelize.define(
     'RecipeLike',
@@ -6,6 +7,7 @@ module.exports = (sequelize, DataTypes) => {
       id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
       userId: { type: DataTypes.INTEGER, allowNull: false },
       recipeId: { type: DataTypes.INTEGER, allowNull: false },
+      note: { type: DataTypes.TEXT },
     },
     { tableName: 'recipe_likes', timestamps: true, createdAt: 'createdAt', updatedAt: false }
   );

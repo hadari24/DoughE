@@ -14,6 +14,7 @@ function shape(recipe) {
     difficulty: r.difficulty,
     totalTimeMinutes: r.totalTimeMinutes,
     steps: r.steps,
+    authorId: r.authorId,
     author: r.author ? `${r.author.firstName} ${r.author.lastName}` : null,
     ingredients: (r.ingredients || []).map((i) => ({
       name: i.name,
@@ -53,11 +54,13 @@ async function getRecipeById(req, res, next) {
 async function createRecipe(req, res, next) {
   const t = await db.sequelize.transaction();
   try {
-    const { title, doughFamily, hydration, difficulty, totalTimeMinutes, steps, ingredients, authorId } = req.body;
+    const { title, doughFamily, hydration, difficulty, totalTimeMinutes, steps, ingredients } = req.body;
     if (!title || !doughFamily) {
       await t.rollback();
       return error(res, 'VALIDATION_ERROR', 'title and doughFamily are required', {}, 400);
     }
+    // the creator (from the x-user-id header) becomes the recipe's author
+    const authorId = parseInt(req.headers['x-user-id']) || req.body.authorId || null;
     const recipe = await db.Recipe.create(
       { title, doughFamily, hydration, difficulty, totalTimeMinutes, steps, authorId },
       { transaction: t }
@@ -75,17 +78,43 @@ async function createRecipe(req, res, next) {
 }
 
 async function updateRecipe(req, res, next) {
+  const t = await db.sequelize.transaction();
   try {
     const id = parseInt(req.params.id);
-    if (isNaN(id)) return error(res, 'INVALID_ID', 'Recipe ID must be a number', { field: 'id' }, 400);
+    if (isNaN(id)) { await t.rollback(); return error(res, 'INVALID_ID', 'Recipe ID must be a number', { field: 'id' }, 400); }
+
     const recipe = await db.Recipe.findByPk(id);
-    if (!recipe) return error(res, 'NOT_FOUND', `No recipe found with ID ${id}`, { field: 'id' }, 404);
+    if (!recipe) { await t.rollback(); return error(res, 'NOT_FOUND', `No recipe found with ID ${id}`, { field: 'id' }, 404); }
+
+    // ownership: admin may edit any recipe; manager may edit only their own
+    const role = req.headers['x-user-role'];
+    const callerId = parseInt(req.headers['x-user-id']);
+    if (role !== 'admin' && recipe.authorId !== callerId) {
+      await t.rollback();
+      return error(res, 'FORBIDDEN', 'You can only edit recipes you created', { recipeId: id }, 403);
+    }
+
     const allowed = ['title', 'doughFamily', 'hydration', 'difficulty', 'totalTimeMinutes', 'steps'];
     const fields = {};
     for (const k of allowed) if (req.body[k] !== undefined) fields[k] = req.body[k];
-    await recipe.update(fields);
+    await recipe.update(fields, { transaction: t });
+
+    // if ingredients were sent, replace the junction rows
+    if (Array.isArray(req.body.ingredients)) {
+      await db.RecipeIngredient.destroy({ where: { recipeId: id }, transaction: t });
+      for (const ing of req.body.ingredients) {
+        if (!ing.name) continue;
+        const [ingredient] = await db.Ingredient.findOrCreate({ where: { name: ing.name }, transaction: t });
+        await db.RecipeIngredient.create(
+          { recipeId: id, ingredientId: ingredient.ingredientId, amount: ing.amount, unit: ing.unit },
+          { transaction: t }
+        );
+      }
+    }
+
+    await t.commit();
     return success(res, { recipeId: recipe.recipeId });
-  } catch (err) { next(err); }
+  } catch (err) { await t.rollback(); next(err); }
 }
 
 async function deleteRecipe(req, res, next) {

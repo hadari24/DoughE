@@ -41,12 +41,32 @@ const server = http.createServer(app);
 const io = new Server(server, { cors: { origin: '*' } });
 initSocket(io);
 
+// lightweight dev migration: add columns that were introduced after a table
+// was first created, so existing databases pick them up on restart (no data loss).
+async function ensureColumns() {
+  const checks = [
+    { table: 'recipe_likes', column: 'note', ddl: 'ALTER TABLE recipe_likes ADD COLUMN note TEXT' },
+    { table: 'comments', column: 'rating', ddl: 'ALTER TABLE comments ADD COLUMN rating INT' },
+  ];
+  for (const c of checks) {
+    const [rows] = await db.sequelize.query(
+      `SELECT COUNT(*) AS n FROM information_schema.COLUMNS
+       WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = '${c.table}' AND COLUMN_NAME = '${c.column}'`
+    );
+    if (Number(rows[0].n) === 0) {
+      await db.sequelize.query(c.ddl);
+      console.log(`Migration: added ${c.table}.${c.column}`);
+    }
+  }
+}
+
 async function start() {
   try {
     await db.sequelize.authenticate();
     console.log('MySQL connection OK.');
     await db.sequelize.sync();
     console.log('Models synced.');
+    await ensureColumns();
     server.listen(PORT, () => {
       console.log(`Dough-E API + Socket.IO running on http://localhost:${PORT}`);
     });

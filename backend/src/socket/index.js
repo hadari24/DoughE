@@ -9,6 +9,8 @@ function initSocket(io) {
 
     socket.on('recipe:join', ({ recipeId }) => {
       socket.join(`recipe:${recipeId}`);
+      // send the current online count to this client right away
+      socket.emit('presence:update', { online: onlineCount });
     });
 
     socket.on('comment:new', async (payload) => {

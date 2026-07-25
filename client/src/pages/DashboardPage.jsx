@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
-import { getRecipes } from '../services/recipesService';
+import { getRecipes, deleteRecipe } from '../services/recipesService';
 import { getMyLikes } from '../services/likesService';
 import RecipeCard from '../components/RecipeCard';
 import RecipesTable from '../components/RecipesTable';
+import RecipeForm from '../components/RecipeForm';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 
@@ -13,12 +14,21 @@ function DashboardPage() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const [likedIds, setLikedIds] = useState(new Set());
+  const [formOpen, setFormOpen] = useState(false);
+  const [editingRecipe, setEditingRecipe] = useState(null);
 
-  useEffect(() => {
+  const role = localStorage.getItem('userRole');
+  const canManage = role === 'admin' || role === 'manager';
+
+  const loadRecipes = () => {
     getRecipes()
       .then(res => setRecipes(res.data.data))
       .catch(() => setError('Failed to load recipes'))
       .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    loadRecipes();
 
     const uid = localStorage.getItem('userId');
     if (uid && uid !== 'guest') {
@@ -27,6 +37,10 @@ function DashboardPage() {
         .catch(() => {});
     }
   }, []);
+
+  const openCreate = () => { setEditingRecipe(null); setFormOpen(true); };
+  const openEdit = (recipe) => { setEditingRecipe(recipe); setFormOpen(true); };
+  const handleDelete = async (id) => { await deleteRecipe(id); loadRecipes(); };
 
   const [familyFilter, setFamilyFilter] = useState('');
   const [difficultyFilter, setDifficultyFilter] = useState('');
@@ -46,11 +60,6 @@ function DashboardPage() {
     <div className="page">
       <Navbar />
       <div className="dashboard-content">
-        <div className="dashboard-header">
-        <button className="toggle-button" onClick={() => setShowCards(!showCards)}>
-          {showCards ? 'Hide Cards' : 'Show Cards'}
-        </button>
-      </div>
         <input
           className="search-input"
           type="text"
@@ -94,6 +103,14 @@ function DashboardPage() {
   />
 </div>
         <h1>All Recipes</h1>
+        <div className="dashboard-header" style={{ marginBottom: 12 }}>
+          <button className="toggle-button" onClick={() => setShowCards(!showCards)}>
+            {showCards ? 'Hide Cards' : 'Show Cards'}
+          </button>
+          {canManage && (
+            <button className="toggle-button" onClick={openCreate}>+ Add Recipe</button>
+          )}
+        </div>
         {showCards && (
         <div className="cards-grid">
           {filtered.map(recipe => (
@@ -108,6 +125,10 @@ function DashboardPage() {
               ingredients={recipe.ingredients}
               steps={recipe.steps}
               initialLiked={likedIds.has(recipe.recipeId)}
+              authorId={recipe.authorId}
+              author={recipe.author}
+              onEdit={openEdit}
+              onDelete={handleDelete}
             />
           ))}
         </div>
@@ -118,6 +139,13 @@ function DashboardPage() {
         <p className="table-hint">Click a column title to sort</p>        
         <RecipesTable recipes={filtered} />
       </div>
+      {formOpen && (
+        <RecipeForm
+          recipe={editingRecipe}
+          onClose={() => setFormOpen(false)}
+          onSaved={loadRecipes}
+        />
+      )}
       <Footer />
     </div>
   );

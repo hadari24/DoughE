@@ -210,13 +210,11 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 12px;
   width: 100%;
   margin-bottom: 24px;
 
 }.toggle-button {
-  position: relative;
-  top: 185px;
-  left: 200px;
   padding: 8px 20px;
   background-color: #c1693a;
   color: white;
