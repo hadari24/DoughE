@@ -43,9 +43,15 @@ function RecipeComments({ recipeId }) {
       .then((res) => { if (active) setComments(res.data.data); })
       .catch(() => {});
 
-    socket.emit('recipe:join', { recipeId });
+    const join = () => socket.emit('recipe:join', { recipeId });
+    join();
+    socket.on('connect', join); // re-join if the socket reconnects
 
-    const onAdded = (comment) => setComments((prev) => [...prev, comment]);
+    const onAdded = (comment) => {
+      if (Number(comment.recipeId) === Number(recipeId)) {
+        setComments((prev) => [...prev, comment]);
+      }
+    };
     const onPresence = ({ online }) => setOnline(online);
 
     socket.on('comment:added', onAdded);

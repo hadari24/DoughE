@@ -38,7 +38,9 @@ function initSocket(io) {
       } catch (e) {
         console.error('Failed to save comment:', e.message);
       }
-      io.to(`recipe:${payload.recipeId}`).emit('comment:added', saved);
+      // broadcast to every connected client; each one keeps only the comments
+      // for the recipe it is currently viewing (robust against room drop-outs)
+      io.emit('comment:added', saved);
     });
 
     socket.on('typing', ({ recipeId, userName }) => {

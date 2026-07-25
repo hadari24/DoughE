@@ -44,7 +44,7 @@ DoughE/
 │       ├── controllers/          # users, recipes, comments, likes, ai
 │       ├── socket/index.js       # Socket.IO events (live comments + presence)
 │       └── seed/seed.js          # sample data loader
-└── client/                       # React frontend
+└── frontend/                     # React frontend
     └── src/
         ├── pages/                # Login, Dashboard, Profile, Settings
         ├── components/           # RecipeCard, RecipeComments, ChatWidget, ...
@@ -67,7 +67,7 @@ Create the database and tables by running the schema in MySQL Workbench
 mysql -u root -p < backend/migrations/schema.sql
 ```
 
-This creates the `doughe` database with all six tables.
+This creates the `doughe` database with all seven tables.
 
 ### 2. Environment variables
 ```bash
@@ -88,7 +88,7 @@ On success the console prints `MySQL connection OK.` and
 
 ### 4. Frontend
 ```bash
-cd client
+cd frontend
 npm install
 npm start         # choose "Y" to run on port 3001 when prompted
 ```
