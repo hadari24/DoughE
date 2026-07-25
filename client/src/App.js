@@ -2,6 +2,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
+import ProfilePage from './pages/ProfilePage';
+import ChatWidget from './components/ChatWidget';
 import { useEffect } from 'react';
 import './App.css';
 
@@ -34,8 +36,12 @@ function App() {
         <Route path="/settings" element={
           <ProtectedRoute><SettingsPage /></ProtectedRoute>
         } />
+        <Route path="/profile" element={
+          <ProtectedRoute><ProfilePage /></ProtectedRoute>
+        } />
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
+      <ChatWidget />
     </BrowserRouter>
   );
 }

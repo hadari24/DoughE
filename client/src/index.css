@@ -460,6 +460,35 @@ tr:last-child td {
 }
 
 
+/* THEME ACCENT VARIABLES (drive the chat widget + comments colors) */
+body {
+  --accent: #8B5E34;
+  --accent-contrast: #ffffff;
+  --chat-bg: #ffffff;
+  --chat-body: #faf6f1;
+  --chat-ai-bubble: #efe6dc;
+  --chat-ai-text: #3a2a1a;
+  --chat-border: #e5ddd3;
+}
+body.dark {
+  --accent: #daa484;
+  --accent-contrast: #2c1a0e;
+  --chat-bg: #3a2a1a;
+  --chat-body: #2c1a0e;
+  --chat-ai-bubble: #5e4327;
+  --chat-ai-text: #f0e6da;
+  --chat-border: #5e4327;
+}
+body.pink {
+  --accent: #f03dc0;
+  --accent-contrast: #ffffff;
+  --chat-bg: #ffffff;
+  --chat-body: #fde7f6;
+  --chat-ai-bubble: #f7d3ec;
+  --chat-ai-text: #820b62;
+  --chat-border: #f3b9e2;
+}
+
 /* DARK MODE */
 
 body.dark .navbar {

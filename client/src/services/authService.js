@@ -7,7 +7,7 @@ export const logout = () =>
   api.post('/auth/logout');
 
 export const getMe = (userId) =>
-  api.get('/users/me', {
+  api.get('/auth/me', {
     headers: {
       'x-user-id': userId,
       'x-user-role': localStorage.getItem('userRole')

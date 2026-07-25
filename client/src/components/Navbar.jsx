@@ -32,6 +32,7 @@ function Navbar() {
           Dough-E
         </Link>
         <Link to="/dashboard">Home</Link>
+        <Link to="/profile">Profile</Link>
         <Link to="/settings">Settings</Link>
       </div>
       <div className="navbar-user">

@@ -5,3 +5,6 @@ export const getRecipes = () =>
 
 export const getRecipeById = (id) =>
   api.get(`/recipes/${id}`);
+
+export const getComments = (recipeId) =>
+  api.get(`/recipes/${recipeId}/comments`);

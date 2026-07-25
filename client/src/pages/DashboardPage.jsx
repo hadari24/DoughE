@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getRecipes } from '../services/recipesService';
+import { getMyLikes } from '../services/likesService';
 import RecipeCard from '../components/RecipeCard';
 import RecipesTable from '../components/RecipesTable';
 import Navbar from '../components/Navbar';
@@ -11,12 +12,20 @@ function DashboardPage() {
   const [showCards, setShowCards] = useState(true);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
+  const [likedIds, setLikedIds] = useState(new Set());
 
   useEffect(() => {
     getRecipes()
       .then(res => setRecipes(res.data.data))
       .catch(() => setError('Failed to load recipes'))
       .finally(() => setLoading(false));
+
+    const uid = localStorage.getItem('userId');
+    if (uid && uid !== 'guest') {
+      getMyLikes()
+        .then(res => setLikedIds(new Set(res.data.data.map(r => r.recipeId))))
+        .catch(() => {});
+    }
   }, []);
 
   const [familyFilter, setFamilyFilter] = useState('');
@@ -98,6 +107,7 @@ function DashboardPage() {
               hydration={recipe.hydration}
               ingredients={recipe.ingredients}
               steps={recipe.steps}
+              initialLiked={likedIds.has(recipe.recipeId)}
             />
           ))}
         </div>

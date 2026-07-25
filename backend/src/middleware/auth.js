@@ -1,4 +1,3 @@
-
 const { error } = require('../utils/response');
 
 function requireRole(...allowedRoles) {
