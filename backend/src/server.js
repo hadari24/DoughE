@@ -60,8 +60,26 @@ async function ensureColumns() {
   }
 }
 
+// create the database/schema itself if it doesn't exist yet (e.g. a brand-new
+// RDS instance created without an initial database name). Connects without a
+// database selected, creates it, then the normal Sequelize connection can use it.
+async function ensureDatabase() {
+  const mysql = require('mysql2/promise');
+  const name = process.env.DB_NAME || 'doughe';
+  const conn = await mysql.createConnection({
+    host: process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT || 3306,
+    user: process.env.DB_USER || 'root',
+    password: process.env.DB_PASSWORD || '',
+  });
+  await conn.query(`CREATE DATABASE IF NOT EXISTS \`${name}\`;`);
+  await conn.end();
+  console.log(`Database "${name}" ready.`);
+}
+
 async function start() {
   try {
+    await ensureDatabase();
     await db.sequelize.authenticate();
     console.log('MySQL connection OK.');
     await db.sequelize.sync();
