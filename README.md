@@ -211,13 +211,13 @@ Custom events (beyond `connect` / `disconnect`), in `backend/src/socket/index.js
 |-------|-----------|---------|
 | `recipe:join` | client → server | join a recipe's room |
 | `comment:new` | client → server | post a comment (with optional star rating) |
-| `comment:added` | server → clients | broadcast the saved comment to the room |
+| `comment:added` | server → clients | broadcast the saved comment (each client keeps its own recipe's comments) |
 | `presence:update` | server → clients | number of connected clients |
 
 **To demo:** open the same recipe in two browser tabs and post a comment in one — it appears
 in both instantly. Reload afterward: the comments are still there (loaded from the database).
 
-The frontend UI is `client/src/components/RecipeComments.jsx`, shown inside each recipe pop-up,
+The frontend UI is `frontend/src/components/RecipeComments.jsx`, shown inside each recipe pop-up,
 including a star-rating picker and an average rating.
 
 ---
@@ -230,7 +230,7 @@ recipe's details are sent as context).
 
 - Endpoint: `POST /api/ai/assistant` (`backend/src/controllers/aiController.js`).
 - The frontend calls **our backend**, never the AI provider directly
-  (`client/src/services/aiService.js` → `client/src/components/ChatWidget.jsx`).
+  (`frontend/src/services/aiService.js` → `frontend/src/components/ChatWidget.jsx`).
 - The provider key lives only in `backend/.env` (`GROQ_API_KEY`) and is never exposed to the
   frontend, the bundle, or network traffic.
 
@@ -248,5 +248,5 @@ the key in `.env` — the frontend needs no changes.
   for development/first-run only; do not run it if you want to keep existing data.
 - **Presence count** is in-memory (not persisted) and counts all connected clients app-wide,
   not per-recipe viewers.
-- The frontend has no admin UI for creating/editing recipes; those operations are done through
-  the API (see the Postman collection in `docs/`).
+- **No pagination** — lists (recipes, users, comments) load all rows at once. This is fine for
+  the assignment's data volume but would not scale to thousands of records.

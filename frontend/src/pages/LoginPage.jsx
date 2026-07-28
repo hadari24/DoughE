@@ -15,11 +15,20 @@ function LoginPage() {
 
   const isSignup = mode === 'signup';
 
+  const applyTheme = (theme) => {
+    document.body.classList.remove('dark', 'pink');
+    if (theme === 'dark') document.body.classList.add('dark');
+    else if (theme === 'pink') document.body.classList.add('pink');
+  };
+
   const storeAndGo = (user) => {
+    const theme = user.theme || 'light';
     localStorage.setItem('userId', user.userId);
     localStorage.setItem('firstName', user.firstName);
     localStorage.setItem('userRole', user.userRole);
     localStorage.setItem('userName', user.firstName);
+    localStorage.setItem('theme', theme);
+    applyTheme(theme);
     navigate('/dashboard');
   };
 
@@ -93,6 +102,8 @@ function LoginPage() {
           localStorage.setItem('userId', 'guest');
           localStorage.setItem('firstName', 'Guest');
           localStorage.setItem('userRole', 'user');
+          localStorage.setItem('theme', 'light');
+          applyTheme('light');
           navigate('/dashboard');
         }}>
           Continue as Guest

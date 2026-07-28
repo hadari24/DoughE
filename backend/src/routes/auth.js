@@ -23,6 +23,7 @@ router.post('/login', async (req, res, next) => {
       firstName: user.firstName,
       lastName: user.lastName,
       userRole: user.userRole,
+      theme: user.theme,
     }, 200);
   } catch (err) { next(err); }
 });
